@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penerbit Alinea — Katalog Buku</title>
+
+<!-- FAVICON — ganti dengan file favicon sendiri -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --text-secondary: #6B6B6B;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent-hover: #1E3F2B;
+    --border: #E8E8E4;
+    --badge-bg: #FFF3E0;
+    --badge-text: #E65100;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --radius: 10px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========================================
+     HEADER
+     ======================================== */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    height: 38px;
+    width: auto;
+    display: block;
+  }
+
+  .brand-text h1 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .brand-text span {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  .search-box {
+    flex: 1;
+    max-width: 380px;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 10px 16px 10px 42px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    background: var(--bg);
+    transition: all 0.2s;
+    outline: none;
+  }
+
+  .search-box input:focus {
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+  }
+
+  /* ========================================
+     ANNOUNCEMENT BAR
+     ======================================== */
+  .announcement-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 24px;
+  }
+
+  .announcement-inner {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    min-height: 42px;
+  }
+
+  .announcement-inner a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+
+  .announcement-inner a:hover {
+    opacity: 0.85;
+  }
+
+  .announcement-icon {
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  .announcement-text {
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .announcement-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .announcement-close:hover {
+    color: #fff;
+  }
+
+  .announcement-bar.hidden {
+    display: none;
+  }
+
+  /* ========================================
+     FILTERS & SORT
+     ======================================== */
+  .toolbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+  }
+
+  .toolbar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .filter-label, .sort-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .filter-select, .sort-select {
+    padding: 8px 36px 8px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    font-weight: 500;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    transition: border-color 0.2s;
+    max-width: 220px;
+  }
+
+  .filter-select:focus, .sort-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .result-count {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .toolbar-divider-v {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+
+  /* ========================================
+     GRID
+     ======================================== */
+  .catalog {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 24px 60px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  /* ========================================
+     CARD
+     ======================================== */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    position: relative;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: transparent;
+  }
+
+  .card-cover {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #E8E8E4 0%, #D5D5CF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-cover .placeholder-cover {
+    width: 60%;
+    height: 70%;
+    background: var(--surface);
+    border-radius: 4px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .placeholder-cover .ph-title {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+
+  .placeholder-cover .ph-author {
+    font-size: 0.55rem;
+    color: var(--text-secondary);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 50px;
+    z-index: 2;
+  }
+
+  .card-badges {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 2;
+  }
+
+  .badge-new {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+  }
+
+  .badge-coming-soon {
+    background: #EDE9FE;
+    color: #6D28D9;
+  }
+
+  .badge-discount {
+    background: #DC2626;
+    color: #fff;
+  }
+
+  /* Discount price */
+  .card-price-wrap {
+    margin-bottom: 10px;
+  }
+
+  .price-original {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    margin-right: 6px;
+  }
+
+  .price-discounted {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #DC2626;
+  }
+
+  .card-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  /* Coming soon overlay */
+  .card-cover.coming-soon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.08);
+    z-index: 1;
+  }
+
+  .card.is-coming-soon .card-links {
+    display: none;
+  }
+
+  .coming-soon-note {
+    font-size: 0.75rem;
+    color: #6D28D9;
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .card-body {
+    padding: 14px 16px 16px;
+  }
+
+  .card-category {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    color: var(--text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-author {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .card-links {
+    display: flex;
+    gap: 6px;
+  }
+
+  .btn-shop {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .btn-shopee { background: #EE4D2D; color: #fff; }
+  .btn-shopee:hover { background: #D94425; }
+  .btn-tokopedia { background: #03AC0E; color: #fff; }
+  .btn-tokopedia:hover { background: #029A0C; }
+  .btn-tiktok { background: var(--text); color: #fff; }
+  .btn-tiktok:hover { background: #333; }
+
+  /* ========================================
+     MODAL
+     ======================================== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: modalIn 0.3s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 24px 24px 0;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 4px;
+    line-height: 1;
+  }
+
+  .modal-content { padding: 16px 24px 24px; }
+
+  .modal-content .detail-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .modal-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 4px 0 6px;
+  }
+
+  .modal-content .detail-author {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .modal-content .detail-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .detail-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .spec-item {
+    background: var(--bg);
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+
+  .spec-item .spec-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .spec-item .spec-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 2px;
+  }
+
+  .modal-content .detail-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .modal-content .card-links { display: flex; gap: 8px; }
+  .modal-content .btn-shop { padding: 12px 16px; font-size: 0.85rem; }
+
+  /* ========================================
+     EMPTY STATE
+     ======================================== */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+  }
+
+  .empty-state svg { margin-bottom: 16px; opacity: 0.4; }
+
+  /* ========================================
+     FOOTER
+     ======================================== */
+  footer {
+    background: #1A1A1A;
+    color: #A1A1A1;
+    font-size: 0.84rem;
+    margin-top: 20px;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 20px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+
+  .footer-brand h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .footer-brand p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: #8A8A8A;
+    margin-bottom: 16px;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 10px;
+  }
+
+  .footer-socials a {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #2A2A2A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .footer-socials a:hover {
+    background: var(--accent);
+  }
+
+  .footer-socials a svg {
+    width: 16px;
+    height: 16px;
+    fill: #A1A1A1;
+  }
+
+  .footer-socials a:hover svg {
+    fill: #fff;
+  }
+
+  .footer-col h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .footer-col ul {
+    list-style: none;
+  }
+
+  .footer-col ul li {
+    margin-bottom: 8px;
+  }
+
+  .footer-col ul li a {
+    color: #8A8A8A;
+    text-decoration: none;
+    font-size: 0.84rem;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover {
+    color: #fff;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #2A2A2A;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #6A6A6A;
+  }
+
+  .footer-bottom a {
+    color: #8A8A8A;
+    text-decoration: none;
+  }
+
+  .footer-bottom a:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  /* ========================================
+     WHATSAPP FLOATING BUTTON
+     ======================================== */
+  .wa-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 150;
+  }
+
+  .wa-fab-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25D366;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .wa-fab-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+  }
+
+  .wa-fab-btn svg { fill: #fff; width: 28px; height: 28px; }
+
+  .wa-fab-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: rgba(37, 211, 102, 0.3);
+    animation: waPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes waPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.15); opacity: 0; }
+  }
+
+  /* Form popup */
+  .wa-popup {
+    position: absolute;
+    bottom: 68px;
+    right: 0;
+    width: 320px;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .wa-popup.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .wa-popup-header {
+    background: #25D366;
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wa-popup-header h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .wa-popup-header h3 svg { fill: #fff; width: 18px; height: 18px; }
+
+  .wa-popup-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .wa-popup-close:hover { color: #fff; }
+
+  .wa-popup-body {
+    padding: 20px;
+  }
+
+  .wa-popup-body p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .wa-field {
+    margin-bottom: 12px;
+  }
+
+  .wa-field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .wa-field input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: var(--bg);
+  }
+
+  .wa-field input:focus {
+    border-color: #25D366;
+    background: var(--surface);
+  }
+
+  .wa-field input.error {
+    border-color: #DC2626;
+  }
+
+  .wa-field .field-error {
+    font-size: 0.72rem;
+    color: #DC2626;
+    margin-top: 3px;
+    display: none;
+  }
+
+  .wa-field .field-error.show {
+    display: block;
+  }
+
+  .wa-submit {
+    width: 100%;
+    padding: 12px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+    margin-top: 16px;
+  }
+
+  .wa-submit:hover { background: #20BD5A; }
+  .wa-submit svg { fill: #fff; width: 18px; height: 18px; }
+
+  /* ========================================
+     RESPONSIVE
+     ======================================== */
+  @media (max-width: 768px) {
+    .header-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .brand { justify-content: center; }
+    .search-box { max-width: 100%; }
+
+    .toolbar-row { flex-direction: column; gap: 10px; }
+    .toolbar-left { width: 100%; }
+    .toolbar-right { width: 100%; justify-content: space-between; }
+    .filter-select, .sort-select { flex: 1; max-width: none; }
+    .toolbar-divider-v { display: none; }
+
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .card-body { padding: 10px 12px 14px; }
+    .card-title { font-size: 0.85rem; }
+    .card-meta { display: none; }
+    .card-links { flex-direction: column; gap: 4px; }
+    .detail-specs { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========================================
+     HEADER
+     ======================================== -->
+<header>
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <!-- LOGO — ganti src dengan path logo kamu -->
+      <img src="logo.png" alt="Penerbit Alinea" class="brand-logo"
+           onerror="this.style.display='none'">
+      <div class="brand-text">
+        <h1>Penerbit Alinea</h1>
+        <span>Katalog Buku</span>
+      </div>
+    </a>
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Cari judul, penulis, atau ISBN...">
+    </div>
+  </div>
+</header>
+
+<!-- ========================================
+     ANNOUNCEMENT BAR
+     ======================================== -->
+<div class="announcement-bar" id="announcementBar">
+  <div class="announcement-inner" id="announcementInner">
+    <span class="announcement-icon" id="announcementIcon"></span>
+    <span class="announcement-text" id="announcementText"></span>
+    <button class="announcement-close" id="announcementClose" aria-label="Tutup">&times;</button>
+  </div>
+</div>
+
+<!-- ========================================
+     FILTERS & SORT TOOLBAR
+     ======================================== -->
+<div class="toolbar">
+  <div class="toolbar-row">
+    <div class="toolbar-left">
+      <span class="filter-label">Kategori:</span>
+      <select class="filter-select" id="categorySelect"></select>
+    </div>
+    <div class="toolbar-right">
+      <span class="result-count" id="bookCount"></span>
+      <span class="toolbar-divider-v"></span>
+      <span class="sort-label">Urutkan:</span>
+      <select class="sort-select" id="sortSelect">
+        <option value="terbaru">Terbaru</option>
+        <option value="terlama">Terlama</option>
+        <option value="judul-az">Judul A–Z</option>
+        <option value="judul-za">Judul Z–A</option>
+        <option value="harga-rendah">Harga Terendah</option>
+        <option value="harga-tinggi">Harga Tertinggi</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     CATALOG GRID
+     ======================================== -->
+<div class="catalog">
+  <div class="grid" id="grid"></div>
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+    <p>Tidak ada buku ditemukan</p>
+  </div>
+</div>
+
+<!-- ========================================
+     MODAL
+     ======================================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div></div>
+      <button class="modal-close" id="modalClose">&times;</button>
+    </div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ========================================
+     WHATSAPP FLOATING BUTTON
+     ======================================== -->
+<div class="wa-fab" id="waFab">
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-header">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat via WhatsApp
+      </h3>
+      <button class="wa-popup-close" id="waPopupClose">&times;</button>
+    </div>
+    <div class="wa-popup-body">
+      <p>Isi data berikut sebelum terhubung ke WhatsApp kami. Tim kami akan segera merespons pesan Anda.</p>
+      <div class="wa-field">
+        <label for="waName">Nama Lengkap *</label>
+        <input type="text" id="waName" placeholder="Masukkan nama Anda">
+        <div class="field-error" id="waNameErr">Nama harus diisi</div>
+      </div>
+      <div class="wa-field">
+        <label for="waPhone">Nomor Telepon *</label>
+        <input type="tel" id="waPhone" placeholder="08xxxxxxxxxx">
+        <div class="field-error" id="waPhoneErr">Nomor telepon harus diisi</div>
+      </div>
+      <div class="wa-field">
+        <label for="waEmail">Email *</label>
+        <input type="email" id="waEmail" placeholder="email@contoh.com">
+        <div class="field-error" id="waEmailErr">Email tidak valid</div>
+      </div>
+      <button class="wa-submit" id="waSubmit">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Mulai Chat
+      </button>
+    </div>
+  </div>
+  <button class="wa-fab-btn" id="waFabBtn" aria-label="Chat WhatsApp">
+    <span class="wa-fab-pulse"></span>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
+</div>
+
+<!-- ========================================
+     FOOTER
+     ======================================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <h3>Penerbit Alinea</h3>
+        <p>Penerbit buku akademik, keislaman, dan pendidikan. Anggota IKAPI sejak 2016. Melayani penerbitan berkualitas untuk perguruan tinggi, lembaga, dan penulis mandiri.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.126-5.864 10.126-11.854z"/></svg>
+          </a>
+          <a href="https://wa.me/6282243813872" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Layanan -->
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#">Daftar Layanan</a></li>
+          <li><a href="#">Kirim Naskah</a></li>
+          <li><a href="#">Ebook Gratis</a></li>
+          <li><a href="#">Tanya-Jawab (FAQ)</a></li>
+        </ul>
+      </div>
+
+      <!-- Perusahaan -->
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <ul>
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Syarat dan Ketentuan</a></li>
+          <li><a href="#">Lowongan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <span>&copy; 2026 Penerbit Alinea. Hak cipta dilindungi undang-undang.</span>
+      <span>Semarang, Jawa Tengah, Indonesia</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// =====================================================
+// ANNOUNCEMENT — Edit bagian ini untuk mengubah pengumuman
+// =====================================================
+// Isi array ini dengan pengumuman yang ingin ditampilkan.
+// Hanya SATU yang tampil pada satu waktu (dipilih acak).
+// Set "active: false" untuk menyembunyikan pengumuman.
+// Gunakan <a href="...">teks</a> untuk menambahkan link.
+const announcements = [
+  {
+    icon: "🔥",
+    text: 'Promo Ramadan — Diskon 25% semua buku Keislaman! <a href="https://shopee.co.id/">Belanja di Shopee</a>',
+    bg: "#B45309",
+    active: true
+  },
+  {
+    icon: "📦",
+    text: 'Gratis ongkir se-Indonesia untuk pembelian min. Rp150.000 via Shopee & Tokopedia',
+    bg: "#2D5A3D",
+    active: true
+  },
+  {
+    icon: "📚",
+    text: 'Buku baru! <strong>Metodologi Penelitian Kualitatif</strong> — sudah tersedia di semua marketplace',
+    bg: "#1E3A5F",
+    active: true
+  }
+];
+
+// =====================================================
+// DATA BUKU
+// =====================================================
+const books = [
+  {
+    id: 1,
+    title: "Metodologi Penelitian Kualitatif",
+    author: "Dr. Ahmad Fauzi, M.Pd.",
+    category: "Akademik",
+    description: "Panduan lengkap metodologi penelitian kualitatif untuk mahasiswa S1 hingga S3, dilengkapi contoh studi kasus dan teknik analisis data terkini.",
+    price: 89000,
+    isbn: "978-602-1234-01-1",
+    pages: 320,
+    size: "15.5 × 23 cm",
+    cover_image: "",
+    links: { shopee: "https://shopee.co.id/", tiktok: "https://tiktok.com/shop/" },
+    is_new: true,
+    discount: 0,
+    coming_soon: false
+  },
+  {
+    id: 2,
+    title: "Fiqih Muamalah Kontemporer",
+    author: "Prof. Dr. H. Sulaiman Rasyid",
+    category: "Keislaman",
+    description: "Pembahasan komprehensif fiqih muamalah dalam konteks ekonomi modern, termasuk fintech syariah, cryptocurrency, dan akad digital.",
+    price: 95000,
+    isbn: "978-602-1234-02-8",
+    pages: 412,
+    size: "15.5 × 23 cm",
+    cover_image: "",
+    links: { shopee: "https://shopee.co.id/", tokopedia: "https://tokopedia.com/" },
+    is_new: false,
+    discount: 25,
+    coming_soon: false
+  },
+  {
+    id: 3,
+    title: "Statistika Terapan dengan SPSS",
+    author: "Dra. Siti Nurhaliza, M.Si.",
+    category: "Akademik",
+    description: "Buku praktis statistika terapan untuk penelitian sosial dan pendidikan. Dilengkapi tutorial SPSS langkah demi langkah.",
+    price: 78000,
+    isbn: "978-602-1234-03-5",
+    pages: 256,
+    size: "17.5 × 25 cm",
+    cover_image: "",
+    links: { shopee: "https://shopee.co.id/", tiktok: "https://tiktok.com/shop/" },
+    is_new: false,
+    discount: 15,
+    coming_soon: false
+  },
+  {
+    id: 4,
+    title: "Sejarah Peradaban Islam di Nusantara",
+    author: "Dr. Muhammad Ridwan, Lc., M.A.",
+    category: "Keislaman",
+    description: "Menelusuri jejak peradaban Islam di Nusantara dari abad ke-7 hingga era modern. Dilengkapi peta historis dan ilustrasi artefak.",
+    price: 115000,
+    isbn: "978-602-1234-04-2",
+    pages: 488,
+    size: "17.5 × 25 cm",
+    cover_image: "",
+    links: { shopee: "https://shopee.co.id/", tokopedia: "https://tokopedia.com/", tiktok: "https://tiktok.com/shop/" },
+    is_new: true,
+    discount: 0,
+    coming_soon: false
+  },
+  {
+    id: 5,
+    title: "Psikologi Pendidikan Anak Usia Dini",
+    author: "Dr. Ratna Megawangi, M.Psi.",
+    category: "Pendidikan",
+    description: "Memahami perkembangan psikologis anak usia dini dan implikasinya terhadap strategi pengajaran di PAUD dan TK.",
+    price: 72000,
+    isbn: "978-602-1234-05-9",
+    pages: 198,
+    size: "15.5 × 23 cm",
+    cover_image: "",
+    links: {},
+    is_new: false,
+    discount: 0,
+    coming_soon: true
+  },
+  {
+    id: 6,
+    title: "Bioteknologi Pertanian Modern",
+    author: "Prof. Ir. Bambang Sutrisno, Ph.D.",
+    category: "Sains",
+    description: "Eksplorasi aplikasi bioteknologi dalam pertanian berkelanjutan: rekayasa genetika tanaman, biofertilizer, dan pengendalian hama hayati.",
+    price: 105000,
+    isbn: "978-602-1234-06-6",
+    pages: 368,
+    size: "17.5 × 25 cm",
+    cover_image: "",
+    links: {},
+    is_new: false,
+    discount: 0,
+    coming_soon: true
+  }
+];
+
+// =====================================================
+// ANNOUNCEMENT BAR LOGIC
+// =====================================================
+function renderAnnouncement() {
+  const bar = document.getElementById('announcementBar');
+  const activeAnnouncements = announcements.filter(a => a.active);
+  
+  if (!activeAnnouncements.length) {
+    bar.classList.add('hidden');
+    return;
+  }
+
+  // Pilih satu secara acak
+  const picked = activeAnnouncements[Math.floor(Math.random() * activeAnnouncements.length)];
+  
+  document.getElementById('announcementIcon').textContent = picked.icon;
+  document.getElementById('announcementText').innerHTML = picked.text;
+  document.getElementById('announcementInner').style.background = picked.bg;
+
+  document.getElementById('announcementClose').addEventListener('click', () => {
+    bar.classList.add('hidden');
+  });
+}
+
+// =====================================================
+// CATALOG LOGIC
+// =====================================================
+const formatPrice = (n) => 'Rp' + n.toLocaleString('id-ID');
+const calcDiscount = (price, pct) => Math.round(price * (1 - pct / 100));
+let activeCategory = 'Semua';
+let activeSort = 'terbaru';
+
+function getCategories() {
+  const cats = [...new Set(books.map(b => b.category))];
+  return ['Semua', ...cats.sort()];
+}
+
+function renderFilters() {
+  const select = document.getElementById('categorySelect');
+  select.innerHTML = getCategories().map(c =>
+    `<option value="${c}" ${c === activeCategory ? 'selected' : ''}>${c} ${c !== 'Semua' ? `(${books.filter(b => b.category === c).length})` : `(${books.length})`}</option>`
+  ).join('');
+}
+
+function sortBooks(list) {
+  const sorted = [...list];
+  switch (activeSort) {
+    case 'terbaru':
+      return sorted.sort((a, b) => b.id - a.id);
+    case 'terlama':
+      return sorted.sort((a, b) => a.id - b.id);
+    case 'judul-az':
+      return sorted.sort((a, b) => a.title.localeCompare(b.title, 'id'));
+    case 'judul-za':
+      return sorted.sort((a, b) => b.title.localeCompare(a.title, 'id'));
+    case 'harga-rendah':
+      return sorted.sort((a, b) => {
+        const pa = a.discount > 0 ? calcDiscount(a.price, a.discount) : a.price;
+        const pb = b.discount > 0 ? calcDiscount(b.price, b.discount) : b.price;
+        return pa - pb;
+      });
+    case 'harga-tinggi':
+      return sorted.sort((a, b) => {
+        const pa = a.discount > 0 ? calcDiscount(a.price, a.discount) : a.price;
+        const pb = b.discount > 0 ? calcDiscount(b.price, b.discount) : b.price;
+        return pb - pa;
+      });
+    default:
+      return sorted;
+  }
+}
+
+function getFilteredBooks() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  return books.filter(b => {
+    const matchCat = activeCategory === 'Semua' || b.category === activeCategory;
+    const matchSearch = !q ||
+      b.title.toLowerCase().includes(q) ||
+      b.author.toLowerCase().includes(q) ||
+      b.isbn.includes(q) ||
+      b.category.toLowerCase().includes(q);
+    return matchCat && matchSearch;
+  });
+}
+
+function renderGrid() {
+  const filtered = sortBooks(getFilteredBooks());
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('emptyState');
+  const count = document.getElementById('bookCount');
+
+  count.textContent = `${filtered.length} dari ${books.length} buku`;
+
+  if (!filtered.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = filtered.map((b, i) => {
+    const hasBadges = b.is_new || b.coming_soon || b.discount > 0;
+    const discountedPrice = b.discount > 0 ? calcDiscount(b.price, b.discount) : null;
+    const hasLinks = b.links && (b.links.shopee || b.links.tokopedia || b.links.tiktok);
+
+    return `
+    <div class="card ${b.coming_soon ? 'is-coming-soon' : ''}" data-id="${b.id}" style="animation-delay:${i * 0.05}s">
+      <div class="card-cover ${b.coming_soon ? 'coming-soon' : ''}">
+        ${b.cover_image
+          ? `<img src="${b.cover_image}" alt="${b.title}" loading="lazy">`
+          : `<div class="placeholder-cover">
+              <div class="ph-title">${b.title}</div>
+              <div class="ph-author">${b.author}</div>
+            </div>`
+        }
+        ${hasBadges ? `<div class="card-badges">
+          ${b.is_new ? '<span class="card-badge badge-new">Baru</span>' : ''}
+          ${b.coming_soon ? '<span class="card-badge badge-coming-soon">Segera Terbit</span>' : ''}
+          ${b.discount > 0 ? `<span class="card-badge badge-discount">-${b.discount}%</span>` : ''}
+        </div>` : ''}
+      </div>
+      <div class="card-body">
+        <div class="card-category">${b.category}</div>
+        <div class="card-title">${b.title}</div>
+        <div class="card-author">${b.author}</div>
+        <div class="card-meta">
+          <span>${b.pages} hal</span>
+          <span>${b.size}</span>
+        </div>
+        ${discountedPrice
+          ? `<div class="card-price-wrap">
+              <span class="price-original">${formatPrice(b.price)}</span>
+              <span class="price-discounted">${formatPrice(discountedPrice)}</span>
+            </div>`
+          : `<div class="card-price">${b.coming_soon ? '-' : formatPrice(b.price)}</div>`
+        }
+        ${b.coming_soon
+          ? '<div class="coming-soon-note">ISBN sedang diajukan</div>'
+          : hasLinks ? `<div class="card-links">
+              ${b.links.shopee ? `<a href="${b.links.shopee}" target="_blank" class="btn-shop btn-shopee" onclick="event.stopPropagation()">Shopee</a>` : ''}
+              ${b.links.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" class="btn-shop btn-tokopedia" onclick="event.stopPropagation()">Tokopedia</a>` : ''}
+              ${b.links.tiktok ? `<a href="${b.links.tiktok}" target="_blank" class="btn-shop btn-tiktok" onclick="event.stopPropagation()">TikTok</a>` : ''}
+            </div>` : ''
+        }
+      </div>
+    </div>`;
+  }).join('');
+
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => openModal(+card.dataset.id));
+  });
+}
+
+function openModal(id) {
+  const b = books.find(x => x.id === id);
+  if (!b) return;
+  const mc = document.getElementById('modalContent');
+  const discountedPrice = b.discount > 0 ? calcDiscount(b.price, b.discount) : null;
+  const hasLinks = b.links && (b.links.shopee || b.links.tokopedia || b.links.tiktok);
+
+  mc.innerHTML = `
+    <div class="detail-category">${b.category}</div>
+    <h2>${b.title}</h2>
+    <div class="detail-author">${b.author}</div>
+    ${b.coming_soon ? '<div style="display:inline-block;background:#EDE9FE;color:#6D28D9;font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:50px;margin-bottom:12px;">Segera Terbit — ISBN sedang diajukan</div>' : ''}
+    <div class="detail-desc">${b.description}</div>
+    <div class="detail-specs">
+      <div class="spec-item"><div class="spec-label">ISBN</div><div class="spec-value">${b.coming_soon ? 'Dalam pengajuan' : b.isbn}</div></div>
+      <div class="spec-item"><div class="spec-label">Halaman</div><div class="spec-value">${b.pages} halaman</div></div>
+      <div class="spec-item"><div class="spec-label">Ukuran</div><div class="spec-value">${b.size}</div></div>
+      <div class="spec-item"><div class="spec-label">Kategori</div><div class="spec-value">${b.category}</div></div>
+    </div>
+    ${discountedPrice
+      ? `<div class="detail-price">
+          <span style="text-decoration:line-through;color:var(--text-secondary);font-size:0.95rem;margin-right:8px;">${formatPrice(b.price)}</span>
+          <span style="color:#DC2626;">${formatPrice(discountedPrice)}</span>
+          <span style="background:#DC2626;color:#fff;font-size:0.72rem;font-weight:600;padding:2px 8px;border-radius:50px;margin-left:8px;">-${b.discount}%</span>
+        </div>`
+      : `<div class="detail-price">${b.coming_soon ? '-' : formatPrice(b.price)}</div>`
+    }
+    ${b.coming_soon
+      ? '<div style="font-size:0.85rem;color:#6D28D9;font-weight:500;">Buku ini akan segera tersedia. Hubungi kami via WhatsApp untuk pre-order.</div>'
+      : hasLinks ? `<div class="card-links">
+          ${b.links.shopee ? `<a href="${b.links.shopee}" target="_blank" class="btn-shop btn-shopee">Beli di Shopee</a>` : ''}
+          ${b.links.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" class="btn-shop btn-tokopedia">Beli di Tokopedia</a>` : ''}
+          ${b.links.tiktok ? `<a href="${b.links.tiktok}" target="_blank" class="btn-shop btn-tiktok">Beli di TikTok Shop</a>` : ''}
+        </div>` : ''
+    }
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// =====================================================
+// WHATSAPP FLOATING BUTTON
+// =====================================================
+const WA_NUMBER = '6282243813872';
+let waPopupOpen = false;
+
+document.getElementById('waFabBtn').addEventListener('click', () => {
+  waPopupOpen = !waPopupOpen;
+  document.getElementById('waPopup').classList.toggle('open', waPopupOpen);
+});
+
+document.getElementById('waPopupClose').addEventListener('click', () => {
+  waPopupOpen = false;
+  document.getElementById('waPopup').classList.remove('open');
+});
+
+// Close popup when clicking outside
+document.addEventListener('click', (e) => {
+  const fab = document.getElementById('waFab');
+  if (waPopupOpen && !fab.contains(e.target)) {
+    waPopupOpen = false;
+    document.getElementById('waPopup').classList.remove('open');
+  }
+});
+
+document.getElementById('waSubmit').addEventListener('click', () => {
+  const name = document.getElementById('waName').value.trim();
+  const phone = document.getElementById('waPhone').value.trim();
+  const email = document.getElementById('waEmail').value.trim();
+
+  // Reset errors
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
+  document.querySelectorAll('.wa-field input').forEach(el => el.classList.remove('error'));
+
+  let hasError = false;
+
+  if (!name) {
+    document.getElementById('waNameErr').classList.add('show');
+    document.getElementById('waName').classList.add('error');
+    hasError = true;
+  }
+  if (!phone) {
+    document.getElementById('waPhoneErr').classList.add('show');
+    document.getElementById('waPhone').classList.add('error');
+    hasError = true;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('waEmailErr').classList.add('show');
+    document.getElementById('waEmail').classList.add('error');
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  const message = `Halo, saya ingin bertanya tentang buku di Penerbit Alinea.%0A%0ANama: ${encodeURIComponent(name)}%0ATelepon: ${encodeURIComponent(phone)}%0AEmail: ${encodeURIComponent(email)}`;
+  const waURL = `https://wa.me/${WA_NUMBER}?text=${message}`;
+  window.open(waURL, '_blank');
+
+  // Reset form
+  document.getElementById('waName').value = '';
+  document.getElementById('waPhone').value = '';
+  document.getElementById('waEmail').value = '';
+  waPopupOpen = false;
+  document.getElementById('waPopup').classList.remove('open');
+});
+
+// Events
+document.getElementById('searchInput').addEventListener('input', renderGrid);
+document.getElementById('categorySelect').addEventListener('change', (e) => {
+  activeCategory = e.target.value;
+  renderGrid();
+});
+document.getElementById('sortSelect').addEventListener('change', (e) => {
+  activeSort = e.target.value;
+  renderGrid();
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// Init
+renderAnnouncement();
+renderFilters();
+renderGrid();
+</script>
+</body>
+</html>
