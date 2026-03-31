@@ -638,6 +638,42 @@
   .empty-state svg { margin-bottom: 16px; opacity: 0.4; }
 
   /* ========================================
+     LOAD MORE
+     ======================================== */
+  .load-more-wrap {
+    text-align: center;
+    padding: 28px 20px 8px;
+  }
+
+  .load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 36px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .load-more-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .load-more-count {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  /* ========================================
      FOOTER
      ======================================== */
   footer {
@@ -1038,6 +1074,12 @@
     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
     <p>Tidak ada buku ditemukan</p>
   </div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+    <button class="load-more-btn" id="loadMoreBtn">
+      Muat Lebih Banyak
+      <span class="load-more-count" id="loadMoreCount"></span>
+    </button>
+  </div>
 </div>
 
 <!-- ========================================
@@ -1309,8 +1351,10 @@ function renderAnnouncement() {
 // =====================================================
 const formatPrice = (n) => 'Rp' + n.toLocaleString('id-ID');
 const calcDiscount = (price, pct) => Math.round(price * (1 - pct / 100));
+const ITEMS_PER_PAGE = 12;
 let activeCategory = 'Semua';
 let activeSort = 'terbaru';
+let visibleCount = ITEMS_PER_PAGE;
 
 function getCategories() {
   const cats = [...new Set(books.map(b => b.category))];
@@ -1365,20 +1409,36 @@ function getFilteredBooks() {
   });
 }
 
-function renderGrid() {
-  const filtered = sortBooks(getFilteredBooks());
+function renderGrid(resetPage) {
+  if (resetPage) visibleCount = ITEMS_PER_PAGE;
+
+  const allFiltered = sortBooks(getFilteredBooks());
+  const filtered = allFiltered.slice(0, visibleCount);
+  const remaining = allFiltered.length - visibleCount;
+
   const grid = document.getElementById('grid');
   const empty = document.getElementById('emptyState');
   const count = document.getElementById('bookCount');
+  const loadMoreWrap = document.getElementById('loadMoreWrap');
+  const loadMoreCount = document.getElementById('loadMoreCount');
 
-  count.textContent = `${filtered.length} dari ${books.length} buku`;
+  count.textContent = `${allFiltered.length} dari ${books.length} buku`;
 
-  if (!filtered.length) {
+  if (!allFiltered.length) {
     grid.innerHTML = '';
     empty.style.display = 'block';
+    loadMoreWrap.style.display = 'none';
     return;
   }
   empty.style.display = 'none';
+
+  // Show/hide load more button
+  if (remaining > 0) {
+    loadMoreWrap.style.display = 'block';
+    loadMoreCount.textContent = `(${Math.min(remaining, ITEMS_PER_PAGE)} dari ${remaining} sisa)`;
+  } else {
+    loadMoreWrap.style.display = 'none';
+  }
 
   grid.innerHTML = filtered.map((b, i) => {
     const hasBadges = b.is_new || b.coming_soon || b.discount > 0;
@@ -1545,14 +1605,18 @@ document.getElementById('waSubmit').addEventListener('click', () => {
 });
 
 // Events
-document.getElementById('searchInput').addEventListener('input', renderGrid);
+document.getElementById('searchInput').addEventListener('input', () => renderGrid(true));
 document.getElementById('categorySelect').addEventListener('change', (e) => {
   activeCategory = e.target.value;
-  renderGrid();
+  renderGrid(true);
 });
 document.getElementById('sortSelect').addEventListener('change', (e) => {
   activeSort = e.target.value;
-  renderGrid();
+  renderGrid(true);
+});
+document.getElementById('loadMoreBtn').addEventListener('click', () => {
+  visibleCount += ITEMS_PER_PAGE;
+  renderGrid(false);
 });
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalOverlay').addEventListener('click', (e) => {
@@ -1563,7 +1627,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal
 // Init
 renderAnnouncement();
 renderFilters();
-renderGrid();
+renderGrid(true);
 </script>
 </body>
 </html>
