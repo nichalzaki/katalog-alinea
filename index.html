@@ -386,6 +386,16 @@
   .badge-coming-soon {
     background: #EDE9FE;
     color: #6D28D9;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    line-height: 1;
+    text-align: center;
   }
 
   .badge-discount {
@@ -427,43 +437,12 @@
     z-index: 1;
   }
 
-  .card.is-coming-soon .card-links {
-    display: none;
-  }
-
   .coming-soon-note {
     font-size: 0.72rem;
     color: #6D28D9;
     font-weight: 600;
     font-style: italic;
     margin-bottom: 8px;
-  }
-
-  .btn-wa-preorder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-    padding: 8px 10px;
-    border: none;
-    border-radius: 8px;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 600;
-    background: #25D366;
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .btn-wa-preorder:hover { background: #20BD5A; }
-
-  .btn-wa-preorder svg {
-    width: 14px;
-    height: 14px;
-    fill: #fff;
   }
 
   .card-body {
@@ -543,6 +522,8 @@
   .btn-tokopedia:hover { background: #029A0C; }
   .btn-tiktok { background: var(--text); color: #fff; }
   .btn-tiktok:hover { background: #333; }
+  .btn-whatsapp { background: #25D366; color: #fff; }
+  .btn-whatsapp:hover { background: #20BD5A; }
 
   /* ========================================
      MODAL
@@ -1478,10 +1459,9 @@ function renderGrid(resetPage) {
   grid.innerHTML = filtered.map((b, i) => {
     const hasBadges = b.is_new || b.coming_soon || b.discount > 0;
     const discountedPrice = b.discount > 0 ? calcDiscount(b.price, b.discount) : null;
-    const hasLinks = b.links && (b.links.shopee || b.links.tokopedia || b.links.tiktok);
 
     return `
-    <div class="card ${b.coming_soon ? 'is-coming-soon' : ''}" data-id="${b.id}" style="animation-delay:${i * 0.05}s">
+    <div class="card" data-id="${b.id}" style="animation-delay:${i * 0.05}s">
       <div class="card-cover ${b.coming_soon ? 'coming-soon' : ''}">
         ${b.cover_image
           ? `<img src="${b.cover_image}" alt="${b.title}" loading="lazy">`
@@ -1492,7 +1472,7 @@ function renderGrid(resetPage) {
         }
         ${hasBadges ? `<div class="card-badges">
           ${b.is_new ? '<span class="card-badge badge-new">Baru</span>' : ''}
-          ${b.coming_soon ? '<span class="card-badge badge-coming-soon">Segera Terbit</span>' : ''}
+          ${b.coming_soon ? '<span class="card-badge badge-coming-soon" title="Segera Terbit">Soon</span>' : ''}
           ${b.discount > 0 ? `<span class="card-badge badge-discount">-${b.discount}%</span>` : ''}
         </div>` : ''}
       </div>
@@ -1512,17 +1492,15 @@ function renderGrid(resetPage) {
           : `<div class="card-price">${b.coming_soon ? '-' : formatPrice(b.price)}</div>`
         }
         ${b.coming_soon
-          ? `<div class="coming-soon-note">ISBN sedang diajukan</div>
-             <a href="https://wa.me/6282243813872?text=${encodeURIComponent('Halo, saya tertarik pre-order buku: ' + b.title)}" target="_blank" class="btn-wa-preorder" onclick="event.stopPropagation()">
-               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-               Pre-order via WhatsApp
-             </a>`
-          : hasLinks ? `<div class="card-links">
-              ${b.links.shopee ? `<a href="${b.links.shopee}" target="_blank" class="btn-shop btn-shopee" onclick="event.stopPropagation()">Shopee</a>` : ''}
-              ${b.links.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" class="btn-shop btn-tokopedia" onclick="event.stopPropagation()">Tokopedia</a>` : ''}
-              ${b.links.tiktok ? `<a href="${b.links.tiktok}" target="_blank" class="btn-shop btn-tiktok" onclick="event.stopPropagation()">TikTok</a>` : ''}
-            </div>` : ''
+          ? '<div class="coming-soon-note">ISBN sedang diajukan</div>'
+          : ''
         }
+        <div class="card-links">
+          ${b.links.shopee ? `<a href="${b.links.shopee}" target="_blank" class="btn-shop btn-shopee" onclick="event.stopPropagation()">Shopee</a>` : ''}
+          ${b.links.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" class="btn-shop btn-tokopedia" onclick="event.stopPropagation()">Tokopedia</a>` : ''}
+          ${b.links.tiktok ? `<a href="${b.links.tiktok}" target="_blank" class="btn-shop btn-tiktok" onclick="event.stopPropagation()">TikTok</a>` : ''}
+          <a href="https://wa.me/6282243813872?text=${encodeURIComponent('Halo, saya ingin memesan buku: ' + b.title)}" target="_blank" class="btn-shop btn-whatsapp" onclick="event.stopPropagation()">WhatsApp</a>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -1537,7 +1515,6 @@ function openModal(id) {
   if (!b) return;
   const mc = document.getElementById('modalContent');
   const discountedPrice = b.discount > 0 ? calcDiscount(b.price, b.discount) : null;
-  const hasLinks = b.links && (b.links.shopee || b.links.tokopedia || b.links.tiktok);
 
   mc.innerHTML = `
     <div class="detail-category">${b.category}</div>
@@ -1560,16 +1537,15 @@ function openModal(id) {
       : `<div class="detail-price">${b.coming_soon ? '-' : formatPrice(b.price)}</div>`
     }
     ${b.coming_soon
-      ? `<a href="https://wa.me/6282243813872?text=${encodeURIComponent('Halo, saya tertarik pre-order buku: ' + b.title)}" target="_blank" class="btn-wa-preorder" style="display:inline-flex;width:auto;padding:12px 24px;font-size:0.88rem;margin-top:4px;">
-           <svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-           Pre-order via WhatsApp
-         </a>`
-      : hasLinks ? `<div class="card-links">
-          ${b.links.shopee ? `<a href="${b.links.shopee}" target="_blank" class="btn-shop btn-shopee">Beli di Shopee</a>` : ''}
-          ${b.links.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" class="btn-shop btn-tokopedia">Beli di Tokopedia</a>` : ''}
-          ${b.links.tiktok ? `<a href="${b.links.tiktok}" target="_blank" class="btn-shop btn-tiktok">Beli di TikTok Shop</a>` : ''}
-        </div>` : ''
+      ? '<div style="display:inline-block;background:#EDE9FE;color:#6D28D9;font-size:0.78rem;font-weight:600;padding:4px 12px;border-radius:50px;margin-bottom:12px;">Segera Terbit — ISBN sedang diajukan</div>'
+      : ''
     }
+    <div class="card-links">
+      ${b.links.shopee ? `<a href="${b.links.shopee}" target="_blank" class="btn-shop btn-shopee">Beli di Shopee</a>` : ''}
+      ${b.links.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" class="btn-shop btn-tokopedia">Beli di Tokopedia</a>` : ''}
+      ${b.links.tiktok ? `<a href="${b.links.tiktok}" target="_blank" class="btn-shop btn-tiktok">Beli di TikTok Shop</a>` : ''}
+      <a href="https://wa.me/6282243813872?text=${encodeURIComponent('Halo, saya ingin memesan buku: ' + b.title)}" target="_blank" class="btn-shop btn-whatsapp">Pesan via WhatsApp</a>
+    </div>
   `;
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
