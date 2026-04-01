@@ -1223,104 +1223,7 @@ const announcements = [
 // =====================================================
 // DATA BUKU
 // =====================================================
-const books = [
-  {
-    id: 1,
-    title: "Metodologi Penelitian Kualitatif",
-    author: "Dr. Ahmad Fauzi, M.Pd.",
-    category: "Akademik",
-    description: "Panduan lengkap metodologi penelitian kualitatif untuk mahasiswa S1 hingga S3, dilengkapi contoh studi kasus dan teknik analisis data terkini.",
-    price: 89000,
-    isbn: "978-602-1234-01-1",
-    pages: 320,
-    size: "15.5 × 23 cm",
-    cover_image: "",
-    links: { shopee: "https://shopee.co.id/", tiktok: "https://tiktok.com/shop/" },
-    is_new: true,
-    discount: 0,
-    coming_soon: false
-  },
-  {
-    id: 2,
-    title: "Fiqih Muamalah Kontemporer",
-    author: "Prof. Dr. H. Sulaiman Rasyid",
-    category: "Keislaman",
-    description: "Pembahasan komprehensif fiqih muamalah dalam konteks ekonomi modern, termasuk fintech syariah, cryptocurrency, dan akad digital.",
-    price: 95000,
-    isbn: "978-602-1234-02-8",
-    pages: 412,
-    size: "15.5 × 23 cm",
-    cover_image: "",
-    links: { shopee: "https://shopee.co.id/", tokopedia: "https://tokopedia.com/" },
-    is_new: false,
-    discount: 25,
-    coming_soon: false
-  },
-  {
-    id: 3,
-    title: "Statistika Terapan dengan SPSS",
-    author: "Dra. Siti Nurhaliza, M.Si.",
-    category: "Akademik",
-    description: "Buku praktis statistika terapan untuk penelitian sosial dan pendidikan. Dilengkapi tutorial SPSS langkah demi langkah.",
-    price: 78000,
-    isbn: "978-602-1234-03-5",
-    pages: 256,
-    size: "17.5 × 25 cm",
-    cover_image: "",
-    links: { shopee: "https://shopee.co.id/", tiktok: "https://tiktok.com/shop/" },
-    is_new: false,
-    discount: 15,
-    coming_soon: false
-  },
-  {
-    id: 4,
-    title: "Sejarah Peradaban Islam di Nusantara",
-    author: "Dr. Muhammad Ridwan, Lc., M.A.",
-    category: "Keislaman",
-    description: "Menelusuri jejak peradaban Islam di Nusantara dari abad ke-7 hingga era modern. Dilengkapi peta historis dan ilustrasi artefak.",
-    price: 115000,
-    isbn: "978-602-1234-04-2",
-    pages: 488,
-    size: "17.5 × 25 cm",
-    cover_image: "",
-    links: { shopee: "https://shopee.co.id/", tokopedia: "https://tokopedia.com/", tiktok: "https://tiktok.com/shop/" },
-    is_new: true,
-    discount: 0,
-    coming_soon: false
-  },
-  {
-    id: 5,
-    title: "Psikologi Pendidikan Anak Usia Dini",
-    author: "Dr. Ratna Megawangi, M.Psi.",
-    category: "Pendidikan",
-    description: "Memahami perkembangan psikologis anak usia dini dan implikasinya terhadap strategi pengajaran di PAUD dan TK.",
-    price: 72000,
-    isbn: "978-602-1234-05-9",
-    pages: 198,
-    size: "15.5 × 23 cm",
-    cover_image: "",
-    links: {},
-    is_new: false,
-    discount: 0,
-    coming_soon: true
-  },
-  {
-    id: 6,
-    title: "Bioteknologi Pertanian Modern",
-    author: "Prof. Ir. Bambang Sutrisno, Ph.D.",
-    category: "Sains",
-    description: "Eksplorasi aplikasi bioteknologi dalam pertanian berkelanjutan: rekayasa genetika tanaman, biofertilizer, dan pengendalian hama hayati.",
-    price: 105000,
-    isbn: "978-602-1234-06-6",
-    pages: 368,
-    size: "17.5 × 25 cm",
-    cover_image: "",
-    links: {},
-    is_new: false,
-    discount: 0,
-    coming_soon: true
-  }
-];
+let books = []; // Data dimuat dari books.json
 
 // =====================================================
 // ANNOUNCEMENT BAR LOGIC
@@ -1626,8 +1529,19 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal
 
 // Init
 renderAnnouncement();
-renderFilters();
-renderGrid(true);
+fetch('./books.json')
+  .then(res => {
+    if (!res.ok) throw new Error('Gagal memuat books.json');
+    return res.json();
+  })
+  .then(data => {
+    books = data;
+    renderFilters();
+    renderGrid(true);
+  })
+  .catch(err => {
+    console.error('Error:', err);
+  });
 </script>
 </body>
 </html>
