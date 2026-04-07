@@ -3,518 +3,630 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Katalog Buku — Penerbit Alinea</title>
-<meta name="description" content="Katalog lengkap buku-buku terbitan Penerbit Alinea">
+<title>Penerbit Alinea — Katalog Buku</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* ── Reset & Base ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --primary:   #1a3a5c;
-    --accent:    #c8932a;
-    --wa:        #25d366;
-    --wa-dark:   #1aab53;
-    --bg:        #f5f6f8;
-    --card-bg:   #ffffff;
-    --text:      #1e1e1e;
-    --muted:     #6b7280;
-    --border:    #e2e5ea;
-    --radius:    10px;
-    --shadow:    0 2px 12px rgba(0,0,0,.08);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,.16);
+    --bg:#FAFAF7;--surface:#fff;--text:#1A1A1A;--text-secondary:#6B6B6B;
+    --accent:#2D5A3D;--accent-light:#E8F0EB;--accent-hover:#1E3F2B;
+    --border:#E8E8E4;--badge-bg:#FFF3E0;--badge-text:#E65100;
+    --shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.08);--shadow-lg:0 8px 32px rgba(0,0,0,.12);
+    --radius:10px;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',-apple-system,sans-serif;
   }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
 
-  /* ── Header ── */
-  header {
-    background: var(--primary);
-    color: #fff;
-    padding: 18px 24px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,.2);
-  }
-  header img.logo {
-    height: 42px;
-    object-fit: contain;
-  }
-  .brand h1 { font-size: 1.15rem; font-weight: 700; letter-spacing: .3px; }
-  .brand p  { font-size: .75rem; opacity: .75; margin-top: 1px; }
+  /* HEADER */
+  header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+  .header-inner{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+  .brand-logo{height:38px;width:auto;display:block}
+  .brand-text h1{font-family:var(--font-display);font-size:1.25rem;font-weight:800;color:var(--accent);letter-spacing:-0.02em;line-height:1.2}
+  .brand-text span{font-size:.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+  .search-box{flex:1;max-width:380px;position:relative}
+  .search-box input{width:100%;padding:10px 16px 10px 42px;border:1.5px solid var(--border);border-radius:50px;font-family:var(--font-body);font-size:.88rem;background:var(--bg);transition:all .2s;outline:none}
+  .search-box input:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px var(--accent-light)}
+  .search-box svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-secondary)}
 
-  /* ── Toolbar ── */
-  .toolbar {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 12px 24px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .toolbar input {
-    flex: 1;
-    min-width: 200px;
-    padding: 9px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: .9rem;
-    outline: none;
-    transition: border-color .2s;
-  }
-  .toolbar input:focus { border-color: var(--primary); }
-  .toolbar select {
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: .85rem;
-    background: #fff;
-    cursor: pointer;
-    outline: none;
-  }
-  .count { font-size: .82rem; color: var(--muted); margin-left: auto; white-space: nowrap; }
+  /* ANNOUNCEMENT */
+  .announcement-bar{max-width:1200px;margin:0 auto;padding:10px 24px}
+  .announcement-inner{background:var(--accent);color:#fff;border-radius:10px;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:.84rem;font-weight:500;position:relative;min-height:42px}
+  .announcement-inner a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+  .announcement-inner a:hover{opacity:.85}
+  .announcement-icon{flex-shrink:0;font-size:1rem}
+  .announcement-text{text-align:center;line-height:1.4}
+  .announcement-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:1.1rem;padding:4px;line-height:1;transition:color .2s}
+  .announcement-close:hover{color:#fff}
+  .announcement-bar.hidden{display:none}
 
-  /* ── Grid ── */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 18px;
-    padding: 24px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
+  /* TOOLBAR */
+  .toolbar{max-width:1200px;margin:0 auto;padding:14px 24px}
+  .toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .toolbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .filter-label,.sort-label{font-size:.78rem;color:var(--text-secondary);white-space:nowrap}
+  .filter-select,.sort-select{padding:8px 36px 8px 14px;border:1.5px solid var(--border);border-radius:50px;font-family:var(--font-body);font-size:.84rem;font-weight:500;background:var(--surface);color:var(--text);cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;transition:border-color .2s;max-width:220px}
+  .filter-select:focus,.sort-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
+  .toolbar-right{display:flex;align-items:center;gap:12px}
+  .result-count{font-size:.82rem;color:var(--text-secondary);font-weight:500;white-space:nowrap}
+  .toolbar-divider-v{width:1px;height:20px;background:var(--border)}
 
-  /* ── Card ── */
-  .card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform .18s, box-shadow .18s;
-    display: flex;
-    flex-direction: column;
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-  .cover-wrap {
-    position: relative;
-    aspect-ratio: 3/4;
-    background: #e9ecef;
-    overflow: hidden;
-  }
-  .cover-wrap img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity .2s;
-  }
-  .badge-new {
-    position: absolute; top: 8px; left: 8px;
-    background: var(--accent); color: #fff;
-    font-size: .65rem; font-weight: 700;
-    padding: 2px 7px; border-radius: 20px;
-    letter-spacing: .5px; text-transform: uppercase;
-  }
-  .badge-soon {
-    position: absolute; top: 8px; right: 8px;
-    background: #64748b; color: #fff;
-    font-size: .65rem; font-weight: 600;
-    padding: 2px 7px; border-radius: 20px;
-  }
-  .cover-placeholder {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, #dce3ef 0%, #c9d3e8 100%);
-  }
-  .cover-placeholder span {
-    font-size: .7rem; color: #7a8ba8; text-align: center;
-    padding: 8px; line-height: 1.4;
-  }
-  .card-body { padding: 10px 12px 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
-  .card-title { font-size: .82rem; font-weight: 700; line-height: 1.35; color: var(--text); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .card-author { font-size: .73rem; color: var(--muted); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .card-price { margin-top: auto; padding-top: 6px; font-size: .88rem; font-weight: 700; color: var(--primary); }
-  .card-price.free { color: var(--muted); font-weight: 400; font-size: .78rem; }
+  /* GRID */
+  .catalog{max-width:1200px;margin:0 auto;padding:8px 24px 60px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
 
-  /* ── Empty / Loading ── */
-  .state-msg {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-  }
-  .spinner {
-    width: 36px; height: 36px;
-    border: 3px solid var(--border);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin .7s linear infinite;
-    margin: 0 auto 14px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  /* SKELETON */
+  .skeleton-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden}
+  .skeleton-cover{aspect-ratio:3/4;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+  .skeleton-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px}
+  .skeleton-line{height:12px;border-radius:6px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+  .skeleton-line.short{width:60%}.skeleton-line.medium{width:80%}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  /* ── Modal ── */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.55);
-    z-index: 200;
-    padding: 20px;
-    overflow-y: auto;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: #fff;
-    border-radius: 14px;
-    width: 100%;
-    max-width: 720px;
-    margin: auto;
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    animation: slideUp .22s ease;
-  }
-  @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  /* CARD */
+  .card{background:var(--surface);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:all .3s cubic-bezier(.25,.46,.45,.94);cursor:pointer;position:relative;animation:fadeUp .4s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:transparent}
+  .card-cover{aspect-ratio:3/4;background:#E8E8E4;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .card-cover img{width:100%;height:100%;object-fit:contain;padding:12px;background:#E8E8E4}
+  .card-cover .placeholder-cover{width:75%;height:80%;background:var(--surface);border-radius:4px;box-shadow:var(--shadow-md);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;gap:8px}
+  .placeholder-cover .ph-title{font-family:var(--font-display);font-size:.78rem;font-weight:700;color:var(--accent);line-height:1.3}
+  .placeholder-cover .ph-author{font-size:.6rem;color:var(--text-secondary)}
+  .card-badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:4px;z-index:2}
+  .card-badge{font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:50px}
+  .badge-new{background:var(--badge-bg);color:var(--badge-text)}
+  .badge-coming-soon{background:#EDE9FE;color:#6D28D9;width:28px;height:28px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;line-height:1;text-align:center}
+  .badge-discount{background:#DC2626;color:#fff}
+  .card-price-wrap{margin-bottom:10px}
+  .price-original{font-size:.8rem;color:var(--text-secondary);text-decoration:line-through;margin-right:6px}
+  .price-discounted{font-size:1rem;font-weight:700;color:#DC2626}
+  .card-price{font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  .card-cover.coming-soon::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.08);z-index:1}
+  .coming-soon-note{font-size:.72rem;color:#6D28D9;font-weight:600;font-style:italic;margin-bottom:8px}
+  .card-body{padding:14px 16px 16px}
+  .card-category{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:600;margin-bottom:4px}
+  .card-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;line-height:1.3;margin-bottom:4px;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-author{font-size:.8rem;color:var(--text-secondary);margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+  .card-meta{display:flex;gap:12px;font-size:.72rem;color:var(--text-secondary);margin-bottom:12px;flex-wrap:wrap}
+  .card-links{display:flex;gap:6px}
+  .btn-shop{flex:1;padding:8px 10px;border:none;border-radius:8px;font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;transition:all .2s}
+  .btn-shopee{background:#EE4D2D;color:#fff}.btn-shopee:hover{background:#D94425}
+  .btn-tokopedia{background:#03AC0E;color:#fff}.btn-tokopedia:hover{background:#029A0C}
+  .btn-tiktok{background:var(--text);color:#fff}.btn-tiktok:hover{background:#333}
+  .btn-whatsapp{background:#25D366;color:#fff}.btn-whatsapp:hover{background:#20BD5A}
 
-  .modal-inner {
-    display: flex;
-    gap: 0;
-  }
-  .modal-cover {
-    width: 220px;
-    flex-shrink: 0;
-    background: #e9ecef;
-  }
-  .modal-cover img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .modal-cover .cover-placeholder { height: 100%; min-height: 280px; }
-  .modal-info {
-    flex: 1;
-    padding: 24px 22px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .modal-close {
-    position: absolute;
-    top: 14px; right: 14px;
-    background: rgba(0,0,0,.4);
-    border: none; color: #fff;
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
-  }
-  .modal-close:hover { background: rgba(0,0,0,.7); }
-  .modal-overlay { position: relative; } /* for close button */
-  .modal { position: relative; }
+  /* MODAL — diperbaiki */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:1000;overflow-y:auto;padding:24px}
+  .modal-overlay.active{display:block}
+  .modal{background:var(--surface);border-radius:16px;max-width:600px;width:100%;margin:40px auto;animation:modalIn .25s ease;position:relative}
+  @keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(-10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .modal-header{display:flex;justify-content:flex-end;padding:16px 20px 0}
+  .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-secondary);padding:4px 8px;line-height:1;border-radius:6px;transition:background .15s}
+  .modal-close:hover{background:var(--bg);color:var(--text)}
+  .modal-content{padding:8px 24px 24px}
+  .modal-content .detail-category{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:600}
+  .modal-content h2{font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin:4px 0 6px;line-height:1.3}
+  .modal-content .detail-author{color:var(--text-secondary);font-size:.9rem;margin-bottom:16px}
+  .modal-content .detail-desc{font-size:.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px}
+  .detail-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+  .spec-item{background:var(--bg);padding:10px 14px;border-radius:8px}
+  .spec-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-secondary);font-weight:500}
+  .spec-value{font-size:.9rem;font-weight:600;color:var(--text);margin-top:2px}
+  .modal-content .detail-price{font-size:1.3rem;font-weight:700;color:var(--accent);margin-bottom:16px}
+  .modal-action-row{display:flex;gap:8px;flex-wrap:wrap}
+  .modal-action-row .btn-shop{padding:12px 16px;font-size:.85rem}
+  .btn-copy-link{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:.85rem;font-weight:600;cursor:pointer;text-align:center;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+  .btn-copy-link:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-copy-link.copied{border-color:#16a34a;color:#16a34a;background:#f0fdf4}
 
-  .modal-category {
-    font-size: .72rem; font-weight: 700; letter-spacing: .8px;
-    text-transform: uppercase; color: var(--accent);
-  }
-  .modal-title {
-    font-size: 1.05rem; font-weight: 800; line-height: 1.4;
-    color: var(--primary);
-  }
-  .modal-author { font-size: .83rem; color: var(--muted); }
-  .modal-meta {
-    display: flex; flex-wrap: wrap; gap: 6px;
-    margin-top: 2px;
-  }
-  .meta-chip {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 6px; padding: 3px 9px;
-    font-size: .72rem; color: var(--muted);
-  }
-  .modal-desc {
-    font-size: .82rem; line-height: 1.6; color: #444;
-    max-height: 120px; overflow-y: auto;
-    border-top: 1px solid var(--border);
-    padding-top: 8px;
-    margin-top: 2px;
-  }
-  .modal-price {
-    font-size: 1.3rem; font-weight: 800; color: var(--primary);
-    margin-top: 4px;
-  }
-  .modal-price.free { font-size: .88rem; color: var(--muted); font-weight: 400; }
+  /* EMPTY */
+  .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}
+  .empty-state svg{margin-bottom:16px;opacity:.4}
 
-  /* ── Action buttons ── */
-  .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
-  .btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: .85rem; font-weight: 600;
-    border: none; cursor: pointer;
-    text-decoration: none;
-    transition: filter .15s, transform .1s;
-  }
-  .btn:hover { filter: brightness(.92); transform: translateY(-1px); }
-  .btn:active { transform: translateY(0); }
-  .btn-wa    { background: var(--wa); color: #fff; }
-  .btn-shopee   { background: #ee4d2d; color: #fff; }
-  .btn-tokopedia{ background: #03ac0e; color: #fff; }
-  .btn-tiktok   { background: #010101; color: #fff; }
-  .btn-copy  {
-    background: #fff; color: var(--primary);
-    border: 1.5px solid var(--primary);
-  }
-  .btn-copy.copied { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
-  .shop-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .shop-row .btn { flex: 1; min-width: 100px; }
+  /* PAGINATION */
+  .pagination-wrap{text-align:center;padding:28px 20px 8px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+  .page-btn{min-width:40px;height:40px;padding:0 14px;border:1.5px solid var(--border);border-radius:50px;font-family:var(--font-body);font-size:.88rem;font-weight:600;background:var(--surface);color:var(--text);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center}
+  .page-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+  .page-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .page-btn:disabled{opacity:.35;cursor:default}
+  .page-ellipsis{color:var(--text-secondary);padding:0 4px}
 
-  /* ── Responsive ── */
-  @media (max-width: 580px) {
-    .modal-inner { flex-direction: column; }
-    .modal-cover { width: 100%; max-height: 260px; }
-    .modal-cover img { object-position: top; }
-    .modal-info { padding: 16px; }
-    .grid { padding: 14px; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  /* FOOTER */
+  footer{background:#1A1A1A;color:#A1A1A1;font-size:.84rem;margin-top:20px}
+  .footer-inner{max-width:1200px;margin:0 auto;padding:40px 24px 20px}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:32px}
+  .footer-brand h3{font-family:var(--font-display);font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:8px}
+  .footer-brand p{font-size:.82rem;line-height:1.7;color:#8A8A8A;margin-bottom:16px}
+  .footer-socials{display:flex;gap:10px}
+  .footer-socials a{width:34px;height:34px;border-radius:8px;background:#2A2A2A;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .footer-socials a:hover{background:var(--accent)}
+  .footer-socials a svg{width:16px;height:16px;fill:#A1A1A1}
+  .footer-socials a:hover svg{fill:#fff}
+  .footer-col h4{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#fff;margin-bottom:14px}
+  .footer-col ul{list-style:none}
+  .footer-col ul li{margin-bottom:8px}
+  .footer-col ul li a{color:#8A8A8A;text-decoration:none;font-size:.84rem;transition:color .2s}
+  .footer-col ul li a:hover{color:#fff}
+  .footer-bottom{border-top:1px solid #2A2A2A;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:.78rem;color:#6A6A6A}
+  .footer-bottom a{color:#8A8A8A;text-decoration:none}
+  .footer-bottom a:hover{color:#fff}
+
+  /* WA FAB */
+  .wa-fab{position:fixed;bottom:24px;right:24px;z-index:150}
+  .wa-fab-btn{width:56px;height:56px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:all .3s;position:relative}
+  .wa-fab-btn:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(37,211,102,.5)}
+  .wa-fab-btn svg{fill:#fff;width:28px;height:28px}
+  .wa-fab-pulse{position:absolute;inset:-4px;border-radius:50%;background:rgba(37,211,102,.3);animation:waPulse 2s ease-in-out infinite}
+  @keyframes waPulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.15);opacity:0}}
+  .wa-popup{position:absolute;bottom:68px;right:0;width:320px;background:var(--surface);border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,.15);border:1px solid var(--border);overflow:hidden;opacity:0;transform:translateY(12px) scale(.95);pointer-events:none;transition:all .3s cubic-bezier(.25,.46,.45,.94)}
+  .wa-popup.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+  .wa-popup-header{background:#25D366;color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+  .wa-popup-header h3{font-size:.95rem;font-weight:700;display:flex;align-items:center;gap:8px}
+  .wa-popup-header h3 svg{fill:#fff;width:18px;height:18px}
+  .wa-popup-close{background:none;border:none;color:rgba(255,255,255,.8);font-size:1.3rem;cursor:pointer;padding:0;line-height:1}
+  .wa-popup-close:hover{color:#fff}
+  .wa-popup-body{padding:20px}
+  .wa-popup-body p{font-size:.82rem;color:var(--text-secondary);margin-bottom:14px;line-height:1.5}
+  .wa-field{margin-bottom:12px}
+  .wa-field label{display:block;font-size:.75rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+  .wa-field input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .2s;background:var(--bg)}
+  .wa-field input:focus{border-color:#25D366;background:var(--surface)}
+  .wa-field input.error{border-color:#DC2626}
+  .wa-field .field-error{font-size:.72rem;color:#DC2626;margin-top:3px;display:none}
+  .wa-field .field-error.show{display:block}
+  .wa-submit{width:100%;padding:12px;background:#25D366;color:#fff;border:none;border-radius:8px;font-family:var(--font-body);font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;margin-top:16px}
+  .wa-submit:hover{background:#20BD5A}
+  .wa-submit svg{fill:#fff;width:18px;height:18px}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .header-inner{flex-direction:column;align-items:stretch;gap:12px}
+    .brand{justify-content:center}
+    .search-box{max-width:100%}
+    .toolbar-row{flex-direction:column;gap:10px}
+    .toolbar-left{width:100%}
+    .toolbar-right{width:100%;justify-content:space-between}
+    .filter-select,.sort-select{flex:1;max-width:none}
+    .toolbar-divider-v{display:none}
+    .grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .card-body{padding:10px 12px 14px}
+    .card-title{font-size:.85rem}
+    .card-meta{display:none}
+    .card-links{flex-direction:column;gap:4px}
+    .detail-specs{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr;gap:28px}
+    .footer-bottom{flex-direction:column;text-align:center}
+    .pagination-wrap{gap:4px}
+    .page-btn{min-width:36px;height:36px;font-size:.82rem}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <img class="logo" src="logo.svg" alt="Penerbit Alinea"
-       onerror="this.src='logo.png'; this.onerror=function(){this.style.display='none'}">
-  <div class="brand">
-    <h1>Penerbit Alinea</h1>
-    <p>Katalog Buku</p>
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <img src="logo.svg" alt="Penerbit Alinea" class="brand-logo"
+           onload="this.nextElementSibling.style.display='none'"
+           onerror="this.src='logo.png';this.onload=function(){this.nextElementSibling.style.display='none'};this.onerror=function(){this.style.display='none'}">
+      <div class="brand-text"><h1>Penerbit Alinea</h1></div>
+    </a>
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Cari judul, penulis, atau ISBN...">
+    </div>
   </div>
 </header>
 
+<div class="announcement-bar" id="announcementBar">
+  <div class="announcement-inner" id="announcementInner">
+    <span class="announcement-icon" id="announcementIcon"></span>
+    <span class="announcement-text" id="announcementText"></span>
+    <button class="announcement-close" id="announcementClose" aria-label="Tutup">&times;</button>
+  </div>
+</div>
+
 <div class="toolbar">
-  <input id="searchInput" type="search" placeholder="Cari judul, penulis, atau ISBN…">
-  <select id="catFilter">
-    <option value="">Semua Kategori</option>
-  </select>
-  <select id="statusFilter">
-    <option value="">Semua Status</option>
-    <option value="available">Tersedia</option>
-    <option value="soon">Coming Soon</option>
-  </select>
-  <span class="count" id="countLabel"></span>
-</div>
-
-<div class="grid" id="grid">
-  <div class="state-msg">
-    <div class="spinner"></div>
-    <p>Memuat katalog…</p>
+  <div class="toolbar-row">
+    <div class="toolbar-left">
+      <span class="filter-label">Kategori:</span>
+      <select class="filter-select" id="categorySelect"></select>
+    </div>
+    <div class="toolbar-right">
+      <span class="result-count" id="bookCount"></span>
+      <span class="toolbar-divider-v"></span>
+      <span class="sort-label">Urutkan:</span>
+      <select class="sort-select" id="sortSelect">
+        <option value="terbaru">Terbaru</option>
+        <option value="terlama">Terlama</option>
+        <option value="judul-az">Judul A–Z</option>
+        <option value="judul-za">Judul Z–A</option>
+        <option value="harga-rendah">Harga Terendah</option>
+        <option value="harga-tinggi">Harga Tertinggi</option>
+      </select>
+    </div>
   </div>
 </div>
 
-<!-- Modal -->
+<div class="catalog">
+  <div class="grid" id="grid"></div>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+    <p>Tidak ada buku ditemukan</p>
+  </div>
+  <div id="paginationWrap" class="pagination-wrap" style="display:none"></div>
+</div>
+
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modal">
-    <button class="modal-close" id="modalClose" title="Tutup">✕</button>
-    <div class="modal-inner">
-      <div class="modal-cover" id="modalCover"></div>
-      <div class="modal-info" id="modalInfo"></div>
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <button class="modal-close" id="modalClose" aria-label="Tutup">&times;</button>
     </div>
+    <div class="modal-content" id="modalContent"></div>
   </div>
 </div>
 
-<script>
-// ── CONFIG ───────────────────────────────────────────────────
-// Ganti URL ini setelah Apps Script di-deploy sebagai Web App
-const API_URL = "https://script.google.com/macros/s/AKfycbyBJJRdGD1szSUgl8QYsCbCQU5bsm_JcU3zUR5OJtwI3_ri1LisgcQ4a68FG2puipIsxg/exec";
-const WA_NUMBER = "6282243813872";
-const COVER_BASE = "covers/"; // prefix path cover image
-
-// ── STATE ────────────────────────────────────────────────────
-let allBooks = [];
-
-// ── FETCH DATA ───────────────────────────────────────────────
-async function loadBooks() {
-  try {
-    const res  = await fetch(API_URL);
-    const data = await res.json();
-    allBooks   = data.books || [];
-    buildCategoryFilter(data.categories || []);
-    render();
-  } catch (err) {
-    document.getElementById("grid").innerHTML =
-      `<div class="state-msg">⚠️ Gagal memuat data. Pastikan Apps Script sudah di-deploy.<br><small>${err.message}</small></div>`;
-  }
-}
-
-// ── CATEGORY FILTER ───────────────────────────────────────────
-function buildCategoryFilter(cats) {
-  const sel = document.getElementById("catFilter");
-  cats.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c; opt.textContent = c;
-    sel.appendChild(opt);
-  });
-}
-
-// ── RENDER GRID ───────────────────────────────────────────────
-function render() {
-  const q      = document.getElementById("searchInput").value.toLowerCase();
-  const cat    = document.getElementById("catFilter").value;
-  const status = document.getElementById("statusFilter").value;
-
-  let books = allBooks.filter(b => {
-    const matchQ = !q ||
-      b.title.toLowerCase().includes(q) ||
-      b.author.toLowerCase().includes(q) ||
-      b.isbn.includes(q);
-    const matchCat    = !cat    || b.category === cat;
-    const matchStatus = !status ||
-      (status === "available" && !b.coming_soon) ||
-      (status === "soon"      &&  b.coming_soon);
-    return matchQ && matchCat && matchStatus;
-  });
-
-  document.getElementById("countLabel").textContent =
-    `${books.length} dari ${allBooks.length} judul`;
-
-  const grid = document.getElementById("grid");
-  if (!books.length) {
-    grid.innerHTML = `<div class="state-msg">Buku tidak ditemukan.</div>`;
-    return;
-  }
-
-  grid.innerHTML = books.map(b => `
-    <div class="card" onclick="openModal('${b.slug}')">
-      <div class="cover-wrap">
-        ${b.cover_image
-          ? `<img src="${COVER_BASE}${b.cover_image}" alt="${escHtml(b.title)}"
-                  loading="lazy"
-                  onerror="this.parentElement.innerHTML='<div class=cover-placeholder><span>${escHtml(b.title)}</span></div>'">`
-          : `<div class="cover-placeholder"><span>${escHtml(b.title)}</span></div>`
-        }
-        ${b.is_new      ? `<span class="badge-new">Baru</span>`        : ""}
-        ${b.coming_soon ? `<span class="badge-soon">Coming Soon</span>` : ""}
+<!-- WA FAB -->
+<div class="wa-fab" id="waFab">
+  <div class="wa-popup" id="waPopup">
+    <div class="wa-popup-header">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat via WhatsApp
+      </h3>
+      <button class="wa-popup-close" id="waPopupClose">&times;</button>
+    </div>
+    <div class="wa-popup-body">
+      <p>Isi data berikut sebelum terhubung ke WhatsApp kami.</p>
+      <div class="wa-field">
+        <label for="waName">Nama Lengkap *</label>
+        <input type="text" id="waName" placeholder="Masukkan nama Anda">
+        <div class="field-error" id="waNameErr">Nama harus diisi</div>
       </div>
-      <div class="card-body">
-        <div class="card-title">${escHtml(b.title)}</div>
-        <div class="card-author">${escHtml(b.author)}</div>
-        <div class="card-price ${b.price ? '' : 'free'}">
-          ${b.price ? "Rp " + b.price.toLocaleString("id-ID") : "Segera hadir"}
-        </div>
+      <div class="wa-field">
+        <label for="waPhone">Nomor Telepon *</label>
+        <input type="tel" id="waPhone" placeholder="08xxxxxxxxxx">
+        <div class="field-error" id="waPhoneErr">Nomor telepon harus diisi</div>
       </div>
-    </div>
-  `).join("");
-}
-
-// ── MODAL ─────────────────────────────────────────────────────
-function openModal(slug) {
-  const b = allBooks.find(x => x.slug === slug);
-  if (!b) return;
-
-  // Update URL hash tanpa reload
-  history.pushState(null, "", `#${slug}`);
-
-  // Cover
-  document.getElementById("modalCover").innerHTML = b.cover_image
-    ? `<img src="${COVER_BASE}${b.cover_image}" alt="${escHtml(b.title)}"
-            onerror="this.parentElement.innerHTML='<div class=cover-placeholder style=height:100%;min-height:280px><span>${escHtml(b.title)}</span></div>'">`
-    : `<div class="cover-placeholder" style="height:100%;min-height:280px"><span>${escHtml(b.title)}</span></div>`;
-
-  // Share link (URL halaman dengan hash slug)
-  const shareUrl = `${location.origin}${location.pathname}#${slug}`;
-
-  // WhatsApp pesan
-  const waMsg = encodeURIComponent(
-    `Halo Penerbit Alinea, saya ingin memesan buku:\n*${b.title}*\n\nMohon informasi ketersediaan dan cara pemesanannya. Terima kasih.`
-  );
-  const waLink = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
-
-  // Tombol marketplace
-  const marketBtns = [
-    b.links?.shopee    ? `<a href="${b.links.shopee}"    target="_blank" rel="noopener" class="btn btn-shopee">Shopee</a>`    : "",
-    b.links?.tokopedia ? `<a href="${b.links.tokopedia}" target="_blank" rel="noopener" class="btn btn-tokopedia">Tokopedia</a>` : "",
-    b.links?.tiktok    ? `<a href="${b.links.tiktok}"    target="_blank" rel="noopener" class="btn btn-tiktok">TikTok Shop</a>` : "",
-  ].filter(Boolean).join("");
-
-  document.getElementById("modalInfo").innerHTML = `
-    <div class="modal-category">${escHtml(b.category)}</div>
-    <div class="modal-title">${escHtml(b.title)}</div>
-    <div class="modal-author">${escHtml(b.author)}</div>
-    <div class="modal-meta">
-      ${b.isbn  ? `<span class="meta-chip">ISBN: ${escHtml(b.isbn)}</span>`    : ""}
-      ${b.pages ? `<span class="meta-chip">${b.pages} hlm.</span>`             : ""}
-      ${b.size  ? `<span class="meta-chip">${escHtml(b.size)}</span>`           : ""}
-    </div>
-    ${b.description ? `<div class="modal-desc">${escHtml(b.description)}</div>` : ""}
-    <div class="modal-price ${b.price ? '' : 'free'}">
-      ${b.price ? "Rp " + b.price.toLocaleString("id-ID") : "Harga segera diumumkan"}
-    </div>
-    <div class="modal-actions">
-      <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-wa">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.853L.057 23.526a.5.5 0 0 0 .617.617l5.656-1.48A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.028-1.382l-.36-.214-3.733.977.997-3.648-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
-        Beli via WhatsApp
-      </a>
-      ${marketBtns ? `<div class="shop-row">${marketBtns}</div>` : ""}
-      <button class="btn btn-copy" id="copyBtn" onclick="copyLink('${shareUrl}')">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Salin Link Produk
+      <div class="wa-field">
+        <label for="waEmail">Email *</label>
+        <input type="email" id="waEmail" placeholder="email@contoh.com">
+        <div class="field-error" id="waEmailErr">Email tidak valid</div>
+      </div>
+      <button class="wa-submit" id="waSubmit">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Mulai Chat
       </button>
     </div>
-  `;
+  </div>
+  <button class="wa-fab-btn" id="waFabBtn" aria-label="Chat WhatsApp">
+    <span class="wa-fab-pulse"></span>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
+</div>
 
-  document.getElementById("modalOverlay").classList.add("open");
-  document.body.style.overflow = "hidden";
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Penerbit Alinea</h3>
+        <p>Penerbit buku akademik, keislaman, dan pendidikan. Anggota IKAPI sejak 2016. Melayani penerbitan berkualitas untuk perguruan tinggi, lembaga, dan penulis mandiri.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.126-5.864 10.126-11.854z"/></svg></a>
+          <a href="https://wa.me/6282243813872" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#">Daftar Layanan</a></li>
+          <li><a href="#">Kirim Naskah</a></li>
+          <li><a href="#">Ebook Gratis</a></li>
+          <li><a href="#">Tanya-Jawab (FAQ)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <ul>
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Syarat dan Ketentuan</a></li>
+          <li><a href="#">Lowongan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Penerbit Alinea. Hak cipta dilindungi undang-undang.</span>
+      <span>Semarang, Jawa Tengah, Indonesia</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+const API_URL   = 'https://script.google.com/macros/s/AKfycbyBJJRdGD1szSUgl8QYsCbCQU5bsm_JcU3zUR5OJtwI3_ri1LisgcQ4a68FG2puipIsxg/exec';
+const WA_NUMBER = '6282243813872';
+const PER_PAGE  = 24;
+
+// ── ANNOUNCEMENTS ───────────────────────────────────────────
+const announcements = [
+  { icon:'🔥', text:'Promo Ramadan — Diskon 25% semua buku Keislaman! <a href="https://shopee.co.id/">Belanja di Shopee</a>', bg:'#B45309', active:true },
+  { icon:'📦', text:'Gratis ongkir se-Indonesia untuk pembelian min. Rp150.000 via Shopee & Tokopedia', bg:'#2D5A3D', active:true },
+  { icon:'📚', text:'Buku baru! <strong>Mikrobiologi Lingkungan</strong> — sudah tersedia di semua marketplace', bg:'#1E3A5F', active:true }
+];
+
+// ── STATE ───────────────────────────────────────────────────
+let books = [], currentPage = 1, activeCategory = 'Semua', activeSort = 'terbaru';
+
+// ── UTILS ───────────────────────────────────────────────────
+const fmt  = n => n > 0 ? 'Rp' + n.toLocaleString('id-ID') : '-';
+const disc = (p,d) => Math.round(p * (1 - d/100));
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── SKELETON ────────────────────────────────────────────────
+function showSkeleton(){
+  document.getElementById('grid').innerHTML = Array(PER_PAGE).fill(0).map(()=>`
+    <div class="skeleton-card">
+      <div class="skeleton-cover"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+      </div>
+    </div>`).join('');
 }
 
-function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("open");
-  document.body.style.overflow = "";
-  history.pushState(null, "", location.pathname);
+// ── ANNOUNCEMENT ────────────────────────────────────────────
+function renderAnnouncement(){
+  const bar = document.getElementById('announcementBar');
+  const active = announcements.filter(a=>a.active);
+  if (!active.length){ bar.classList.add('hidden'); return; }
+  const p = active[Math.floor(Math.random()*active.length)];
+  document.getElementById('announcementIcon').textContent = p.icon;
+  document.getElementById('announcementText').innerHTML   = p.text;
+  document.getElementById('announcementInner').style.background = p.bg;
+  document.getElementById('announcementClose').onclick = ()=> bar.classList.add('hidden');
 }
 
-function copyLink(url) {
-  navigator.clipboard.writeText(url).then(() => {
-    const btn = document.getElementById("copyBtn");
-    if (!btn) return;
-    btn.classList.add("copied");
-    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Link Disalin!`;
-    setTimeout(() => {
-      btn.classList.remove("copied");
-      btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Salin Link Produk`;
-    }, 2500);
+// ── FILTERS ─────────────────────────────────────────────────
+function renderFilters(){
+  const cats = ['Semua',...[...new Set(books.map(b=>b.category))].sort()];
+  document.getElementById('categorySelect').innerHTML = cats.map(c=>
+    `<option value="${c}">${c==='Semua'?`Semua (${books.length})`:`${c} (${books.filter(b=>b.category===c).length})`}</option>`
+  ).join('');
+}
+
+// ── SORT & FILTER ───────────────────────────────────────────
+function getFiltered(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  let list = books.filter(b=>{
+    const cat  = activeCategory==='Semua' || b.category===activeCategory;
+    const srch = !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || (b.isbn||'').includes(q) || b.category.toLowerCase().includes(q);
+    return cat && srch;
+  });
+  switch(activeSort){
+    case 'terbaru':     list.sort((a,b)=>b.id-a.id); break;
+    case 'terlama':     list.sort((a,b)=>a.id-b.id); break;
+    case 'judul-az':    list.sort((a,b)=>a.title.localeCompare(b.title,'id')); break;
+    case 'judul-za':    list.sort((a,b)=>b.title.localeCompare(a.title,'id')); break;
+    case 'harga-rendah':list.sort((a,b)=>(a.discount>0?disc(a.price,a.discount):a.price)-(b.discount>0?disc(b.price,b.discount):b.price)); break;
+    case 'harga-tinggi':list.sort((a,b)=>(b.discount>0?disc(b.price,b.discount):b.price)-(a.discount>0?disc(a.price,a.discount):a.price)); break;
+  }
+  return list;
+}
+
+// ── CARD HTML ───────────────────────────────────────────────
+function cardHTML(b,i){
+  const dp = b.discount>0 ? disc(b.price,b.discount) : null;
+  const waMsg = encodeURIComponent(`Halo Penerbit Alinea, saya ingin memesan buku:\n*${b.title}*\n\nMohon informasi ketersediaan dan cara pemesanannya. Terima kasih.`);
+  const slug  = esc(b.slug||b.id);
+  return `
+  <div class="card" data-slug="${slug}" style="animation-delay:${i*0.03}s">
+    <div class="card-cover${b.coming_soon?' coming-soon':''}">
+      ${b.cover_image
+        ? `<img src="${esc(b.cover_image)}" alt="${esc(b.title)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=placeholder-cover><div class=ph-title>${esc(b.title).replace(/'/g,"&#39;")}</div><div class=ph-author>${esc(b.author).replace(/'/g,"&#39;")}</div></div>'">`
+        : `<div class="placeholder-cover"><div class="ph-title">${esc(b.title)}</div><div class="ph-author">${esc(b.author)}</div></div>`}
+      ${b.is_new||b.coming_soon||b.discount>0?`<div class="card-badges">
+        ${b.is_new?'<span class="card-badge badge-new">Baru</span>':''}
+        ${b.coming_soon?'<span class="card-badge badge-coming-soon" title="Segera Terbit">Soon</span>':''}
+        ${b.discount>0?`<span class="card-badge badge-discount">-${b.discount}%</span>`:''}
+      </div>`:''}
+    </div>
+    <div class="card-body">
+      <div class="card-category">${esc(b.category)}</div>
+      <div class="card-title">${esc(b.title)}</div>
+      <div class="card-author">${esc(b.author)}</div>
+      <div class="card-meta">
+        ${b.pages?`<span>${b.pages} hal</span>`:''}
+        ${b.size?`<span>${esc(b.size)}</span>`:''}
+      </div>
+      ${dp
+        ? `<div class="card-price-wrap"><span class="price-original">${fmt(b.price)}</span><span class="price-discounted">${fmt(dp)}</span></div>`
+        : `<div class="card-price">${b.coming_soon?'-':fmt(b.price)}</div>`}
+      ${b.coming_soon?'<div class="coming-soon-note">ISBN sedang diajukan</div>':''}
+      <div class="card-links">
+        ${b.links&&b.links.shopee?`<a href="${esc(b.links.shopee)}" target="_blank" rel="noopener" class="btn-shop btn-shopee" onclick="event.stopPropagation()">Shopee</a>`:''}
+        ${b.links&&b.links.tokopedia?`<a href="${esc(b.links.tokopedia)}" target="_blank" rel="noopener" class="btn-shop btn-tokopedia" onclick="event.stopPropagation()">Tokopedia</a>`:''}
+        ${b.links&&b.links.tiktok?`<a href="${esc(b.links.tiktok)}" target="_blank" rel="noopener" class="btn-shop btn-tiktok" onclick="event.stopPropagation()">TikTok</a>`:''}
+        <a href="https://wa.me/${WA_NUMBER}?text=${waMsg}" target="_blank" rel="noopener" class="btn-shop btn-whatsapp" onclick="event.stopPropagation()">WhatsApp</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── RENDER GRID ─────────────────────────────────────────────
+function renderGrid(resetPage){
+  if (resetPage) currentPage = 1;
+  const filtered = getFiltered();
+  const total    = filtered.length;
+  const pages    = Math.ceil(total/PER_PAGE);
+  if (currentPage>pages && pages>0) currentPage = pages;
+
+  const start = (currentPage-1)*PER_PAGE;
+  const paged = filtered.slice(start, start+PER_PAGE);
+
+  const grid   = document.getElementById('grid');
+  const empty  = document.getElementById('emptyState');
+  const pgWrap = document.getElementById('paginationWrap');
+
+  document.getElementById('bookCount').textContent = `${total} dari ${books.length} buku`;
+
+  if (!total){
+    grid.innerHTML = ''; empty.style.display='block'; pgWrap.style.display='none'; return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = paged.map((b,i)=>cardHTML(b,i)).join('');
+
+  grid.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('click', ()=> openModal(card.dataset.slug));
+  });
+
+  if (pages>1){
+    pgWrap.style.display='flex';
+    pgWrap.innerHTML = buildPagination(currentPage, pages);
+    pgWrap.querySelectorAll('.page-btn[data-page]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        currentPage = +btn.dataset.page;
+        renderGrid(false);
+        window.scrollTo({top:0, behavior:'smooth'});
+      });
+    });
+  } else {
+    pgWrap.style.display='none';
+  }
+}
+
+function buildPagination(cur,total){
+  let h = `<button class="page-btn" data-page="${cur-1}" ${cur===1?'disabled':''}>← Prev</button>`;
+  const pages=[];
+  if(total<=7){ for(let i=1;i<=total;i++) pages.push(i); }
+  else{
+    pages.push(1);
+    if(cur>3) pages.push('…');
+    for(let i=Math.max(2,cur-1);i<=Math.min(total-1,cur+1);i++) pages.push(i);
+    if(cur<total-2) pages.push('…');
+    pages.push(total);
+  }
+  pages.forEach(p=>{
+    if(p==='…') h+=`<span class="page-ellipsis">…</span>`;
+    else h+=`<button class="page-btn${p===cur?' active':''}" data-page="${p}">${p}</button>`;
+  });
+  h+=`<button class="page-btn" data-page="${cur+1}" ${cur===total?'disabled':''}>Next →</button>`;
+  return h;
+}
+
+// ── MODAL ───────────────────────────────────────────────────
+function openModal(slugOrId){
+  const b = books.find(x=> String(x.slug||x.id)===String(slugOrId));
+  if (!b) return;
+
+  const dp     = b.discount>0 ? disc(b.price,b.discount) : null;
+  const waMsg  = encodeURIComponent(`Halo Penerbit Alinea, saya ingin memesan buku:\n*${b.title}*\n\nMohon informasi ketersediaan dan cara pemesanannya. Terima kasih.`);
+  const shareUrl = `${location.origin}${location.pathname}#${b.slug||b.id}`;
+
+  document.getElementById('modalContent').innerHTML = `
+    <div class="detail-category">${esc(b.category)}</div>
+    <h2>${esc(b.title)}</h2>
+    <div class="detail-author">${esc(b.author)}</div>
+    ${b.coming_soon?'<div style="display:inline-block;background:#EDE9FE;color:#6D28D9;font-size:.78rem;font-weight:600;padding:4px 12px;border-radius:50px;margin-bottom:12px;">Segera Terbit — ISBN sedang diajukan</div>':''}
+    ${b.description?`<div class="detail-desc">${esc(b.description)}</div>`:''}
+    <div class="detail-specs">
+      <div class="spec-item"><div class="spec-label">ISBN</div><div class="spec-value">${b.coming_soon?'Dalam pengajuan':esc(b.isbn||'-')}</div></div>
+      <div class="spec-item"><div class="spec-label">Halaman</div><div class="spec-value">${b.pages?b.pages+' halaman':'-'}</div></div>
+      <div class="spec-item"><div class="spec-label">Ukuran</div><div class="spec-value">${esc(b.size||'-')}</div></div>
+      <div class="spec-item"><div class="spec-label">Kategori</div><div class="spec-value">${esc(b.category)}</div></div>
+    </div>
+    ${dp
+      ? `<div class="detail-price"><span style="text-decoration:line-through;color:var(--text-secondary);font-size:.95rem;margin-right:8px;">${fmt(b.price)}</span><span style="color:#DC2626;">${fmt(dp)}</span><span style="background:#DC2626;color:#fff;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:50px;margin-left:8px;">-${b.discount}%</span></div>`
+      : `<div class="detail-price">${b.coming_soon?'-':fmt(b.price)}</div>`}
+    <div class="modal-action-row">
+      ${b.links&&b.links.shopee?`<a href="${esc(b.links.shopee)}" target="_blank" rel="noopener" class="btn-shop btn-shopee">Beli di Shopee</a>`:''}
+      ${b.links&&b.links.tokopedia?`<a href="${esc(b.links.tokopedia)}" target="_blank" rel="noopener" class="btn-shop btn-tokopedia">Beli di Tokopedia</a>`:''}
+      ${b.links&&b.links.tiktok?`<a href="${esc(b.links.tiktok)}" target="_blank" rel="noopener" class="btn-shop btn-tiktok">Beli di TikTok Shop</a>`:''}
+      <a href="https://wa.me/${WA_NUMBER}?text=${waMsg}" target="_blank" rel="noopener" class="btn-shop btn-whatsapp">Pesan via WhatsApp</a>
+      <button class="btn-copy-link" id="copyLinkBtn" onclick="copyLink('${shareUrl}')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Salin Link
+      </button>
+    </div>`;
+
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('active');
+  overlay.scrollTop = 0;
+  // Kunci scroll body — tapi HANYA body, bukan overlay
+  document.body.style.overflow = 'hidden';
+  history.pushState(null,'',`#${b.slug||b.id}`);
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  history.pushState(null,'',location.pathname);
+}
+
+function copyLink(url){
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn = document.getElementById('copyLinkBtn');
+    if(!btn) return;
+    btn.classList.add('copied');
+    btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Disalin!`;
+    setTimeout(()=>{
+      btn.classList.remove('copied');
+      btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Salin Link`;
+    },2500);
   });
 }
 
-// ── UTILS ─────────────────────────────────────────────────────
-function escHtml(str) {
-  return String(str || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-}
-
-// ── EVENTS ────────────────────────────────────────────────────
-document.getElementById("searchInput").addEventListener("input", render);
-document.getElementById("catFilter").addEventListener("change", render);
-document.getElementById("statusFilter").addEventListener("change", render);
-document.getElementById("modalClose").addEventListener("click", closeModal);
-document.getElementById("modalOverlay").addEventListener("click", e => {
-  if (e.target === e.currentTarget) closeModal();
-});
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
-// Buka modal dari hash URL (deep link)
-window.addEventListener("load", () => {
-  const hash = location.hash.slice(1);
-  if (hash && allBooks.length) openModal(hash);
+// ── WA FAB ──────────────────────────────────────────────────
+let waOpen=false;
+document.getElementById('waFabBtn').addEventListener('click',()=>{ waOpen=!waOpen; document.getElementById('waPopup').classList.toggle('open',waOpen); });
+document.getElementById('waPopupClose').addEventListener('click',()=>{ waOpen=false; document.getElementById('waPopup').classList.remove('open'); });
+document.addEventListener('click',e=>{ if(waOpen&&!document.getElementById('waFab').contains(e.target)){ waOpen=false; document.getElementById('waPopup').classList.remove('open'); } });
+document.getElementById('waSubmit').addEventListener('click',()=>{
+  const name=document.getElementById('waName').value.trim();
+  const phone=document.getElementById('waPhone').value.trim();
+  const email=document.getElementById('waEmail').value.trim();
+  document.querySelectorAll('.field-error').forEach(el=>el.classList.remove('show'));
+  document.querySelectorAll('.wa-field input').forEach(el=>el.classList.remove('error'));
+  let err=false;
+  if(!name){document.getElementById('waNameErr').classList.add('show');document.getElementById('waName').classList.add('error');err=true;}
+  if(!phone){document.getElementById('waPhoneErr').classList.add('show');document.getElementById('waPhone').classList.add('error');err=true;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('waEmailErr').classList.add('show');document.getElementById('waEmail').classList.add('error');err=true;}
+  if(err) return;
+  window.open(`https://wa.me/${WA_NUMBER}?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20buku%20di%20Penerbit%20Alinea.%0A%0ANama%3A%20${encodeURIComponent(name)}%0ATelepon%3A%20${encodeURIComponent(phone)}%0AEmail%3A%20${encodeURIComponent(email)}`,'_blank');
+  document.getElementById('waName').value=''; document.getElementById('waPhone').value=''; document.getElementById('waEmail').value='';
+  waOpen=false; document.getElementById('waPopup').classList.remove('open');
 });
 
-// ── INIT ──────────────────────────────────────────────────────
-loadBooks();
+// ── EVENTS ──────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input',()=>renderGrid(true));
+document.getElementById('categorySelect').addEventListener('change',e=>{ activeCategory=e.target.value; renderGrid(true); });
+document.getElementById('sortSelect').addEventListener('change',e=>{ activeSort=e.target.value; renderGrid(true); });
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('modalOverlay').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+// ── INIT ────────────────────────────────────────────────────
+showSkeleton();
+renderAnnouncement();
+
+fetch(API_URL)
+  .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .then(data=>{
+    books = data.books || data || [];
+    renderFilters();
+    renderGrid(true);
+    const hash = location.hash.slice(1);
+    if(hash) openModal(hash);
+  })
+  .catch(err=>{
+    document.getElementById('grid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#c00;"><p>Gagal memuat data buku.</p><small>${err.message}</small></div>`;
+  });
 </script>
 </body>
 </html>
