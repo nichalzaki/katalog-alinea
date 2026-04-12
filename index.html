@@ -187,32 +187,52 @@
   @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
   /* MODAL */
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:1000;overflow-y:auto;padding:24px}
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:1000;overflow-y:auto;padding:24px}
   .modal-overlay.active{display:block}
-  .modal{background:var(--surface);border-radius:16px;max-width:580px;width:100%;margin:40px auto;animation:modalIn .22s ease;position:relative}
-  @keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(-10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-  .modal-header{display:flex;justify-content:flex-end;padding:14px 18px 0}
-  .modal-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);padding:4px 8px;line-height:1;border-radius:6px;transition:var(--t)}
-  .modal-close:hover{background:var(--bg);color:var(--ink)}
-  .modal-content{padding:6px 22px 22px}
-  .modal-content .detail-category{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700}
-  .modal-content h2{font-family:var(--serif);font-size:1.35rem;font-weight:700;margin:4px 0 5px;line-height:1.3;color:var(--ink)}
-  .modal-content .detail-author{color:var(--muted);font-size:.88rem;margin-bottom:14px}
-  .modal-content .detail-desc{font-size:.88rem;color:var(--mid);line-height:1.7;margin-bottom:14px}
-  .detail-specs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
-  .spec-item{background:var(--bg);padding:9px 13px;border-radius:8px}
-  .spec-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
-  .spec-value{font-size:.88rem;font-weight:600;color:var(--ink);margin-top:2px}
-  .modal-content .detail-price{font-size:1.25rem;font-weight:700;color:var(--accent);margin-bottom:14px}
-  .modal-action-row{display:flex;gap:8px;flex-wrap:wrap}
-  .modal-action-row .btn-shop{padding:11px 14px;font-size:.83rem}
-  .btn-copy-link{padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);font-family:var(--sans);font-size:.83rem;font-weight:600;cursor:pointer;text-align:center;transition:var(--t);display:inline-flex;align-items:center;justify-content:center;gap:6px}
+  .modal{background:var(--surface);border-radius:16px;max-width:760px;width:100%;margin:40px auto;animation:modalIn .22s ease;position:relative;overflow:hidden}
+  @keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(-12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+  /* Tombol tutup — pojok kanan atas absolute */
+  .modal-close{position:absolute;top:14px;right:14px;background:var(--bg2);border:none;width:32px;height:32px;border-radius:50%;font-size:1.2rem;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;line-height:1;transition:var(--t);z-index:2}
+  .modal-close:hover{background:var(--border);color:var(--ink)}
+
+  /* Layout dua kolom: gambar | info */
+  .modal-inner{display:grid;grid-template-columns:200px 1fr}
+  .modal-cover-col{background:var(--bg2);display:flex;align-items:center;justify-content:center;padding:24px 16px;min-height:320px}
+  .modal-cover-col img{width:100%;height:auto;max-height:340px;object-fit:contain;border-radius:6px;box-shadow:var(--shadow-lg)}
+  .modal-cover-placeholder{width:100%;aspect-ratio:3/4;background:var(--surface);border-radius:8px;box-shadow:var(--shadow-md);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;gap:8px}
+  .modal-cover-placeholder .ph-title{font-family:var(--serif);font-size:.8rem;font-weight:700;color:var(--accent);line-height:1.3}
+  .modal-cover-placeholder .ph-author{font-size:.65rem;color:var(--muted)}
+
+  .modal-info-col{padding:28px 24px 24px;overflow-y:auto;max-height:80vh}
+  .modal-info-col .detail-category{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);font-weight:700;margin-bottom:4px}
+  .modal-info-col h2{font-family:var(--serif);font-size:1.25rem;font-weight:700;margin:0 0 5px;line-height:1.35;color:var(--ink)}
+  .modal-info-col .detail-author{color:var(--muted);font-size:.86rem;margin-bottom:12px}
+  .modal-info-col .detail-desc{font-size:.85rem;color:var(--mid);line-height:1.7;margin-bottom:14px}
+  .detail-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+  .spec-item{background:var(--bg);padding:8px 12px;border-radius:8px}
+  .spec-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+  .spec-value{font-size:.86rem;font-weight:600;color:var(--ink);margin-top:2px}
+  .modal-info-col .detail-price{font-size:1.2rem;font-weight:700;color:var(--accent);margin-bottom:14px}
+  .modal-action-row{display:flex;gap:7px;flex-wrap:wrap}
+  .modal-action-row .btn-shop{padding:10px 13px;font-size:.81rem}
+  .btn-copy-link{padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);font-family:var(--sans);font-size:.81rem;font-weight:600;cursor:pointer;text-align:center;transition:var(--t);display:inline-flex;align-items:center;justify-content:center;gap:5px}
   .btn-copy-link:hover{border-color:var(--accent);color:var(--accent)}
   .btn-copy-link.copied{border-color:#16a34a;color:#16a34a;background:#f0fdf4}
 
-  .modal-label-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:50px;font-size:.73rem;font-weight:700;margin-bottom:9px}
+  .modal-label-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:50px;font-size:.71rem;font-weight:700;margin-bottom:8px}
   .modal-label-badge.bestseller{background:#FEE2E2;color:#DC2626}
   .modal-label-badge.rekomendasi{background:#EDE9FE;color:#6D28D9}
+
+  /* Modal responsive — stack vertikal di mobile */
+  @media(max-width:600px){
+    .modal{margin:16px auto}
+    .modal-inner{grid-template-columns:1fr}
+    .modal-cover-col{padding:20px;min-height:auto}
+    .modal-cover-col img{max-height:220px}
+    .modal-info-col{padding:16px 18px 20px;max-height:none}
+    .detail-specs{grid-template-columns:1fr 1fr}
+  }
 
   /* EMPTY */
   .empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
@@ -396,10 +416,11 @@
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modalBox">
-    <div class="modal-header">
-      <button class="modal-close" id="modalClose" aria-label="Tutup">&times;</button>
+    <button class="modal-close" id="modalClose" aria-label="Tutup">&times;</button>
+    <div class="modal-inner">
+      <div class="modal-cover-col" id="modalCoverCol"></div>
+      <div class="modal-info-col" id="modalContent"></div>
     </div>
-    <div class="modal-content" id="modalContent"></div>
   </div>
 </div>
 
@@ -446,8 +467,8 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <h3>Alinea Media Dipantara</h3>
-        <p>Penerbit buku independen.</p>
+        <h3>Penerbit Alinea</h3>
+        <p>Penerbit buku akademik, keislaman, dan pendidikan. Anggota IKAPI sejak 2016. Melayani penerbitan berkualitas untuk perguruan tinggi, lembaga, dan penulis mandiri.</p>
         <div class="footer-socials">
           <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
           <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.126-5.864 10.126-11.854z"/></svg></a>
@@ -474,7 +495,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Penerbit Alinea. Hak cipta dilindungi undang-undang.</span>
-      <span>Indonesia</span>
+      <span>Semarang, Jawa Tengah, Indonesia</span>
     </div>
   </div>
 </footer>
@@ -732,18 +753,29 @@ function openModal(slugOrId){
   const waMsg   = encodeURIComponent(`Halo Penerbit Alinea, saya ingin memesan buku:\n*${b.title}*\n\nMohon informasi ketersediaan dan cara pemesanannya. Terima kasih.`);
   const shareUrl = `${location.origin}${location.pathname}#${b.slug||b.id}`;
 
+  // ── Cover col ──
+  const coverCol = document.getElementById('modalCoverCol');
+  if (b.cover_image) {
+    coverCol.innerHTML = `<img src="${esc(b.cover_image)}" alt="${esc(b.title)}"
+      onerror="this.parentElement.innerHTML='<div class=modal-cover-placeholder><div class=ph-title>${esc(b.title).replace(/'/g,"&#39;")}</div><div class=ph-author>${esc(b.author).replace(/'/g,"&#39;")}</div></div>'">`;
+  } else {
+    coverCol.innerHTML = `<div class="modal-cover-placeholder"><div class="ph-title">${esc(b.title)}</div><div class="ph-author">${esc(b.author)}</div></div>`;
+  }
+
+  // ── Badge label ──
   const labelHTML = b.label === 'Best Seller'
     ? '<div class="modal-label-badge bestseller">🏆 Best Seller</div>'
     : b.label === 'Rekomendasi'
       ? '<div class="modal-label-badge rekomendasi">⭐ Rekomendasi</div>'
       : '';
 
+  // ── Info col ──
   document.getElementById('modalContent').innerHTML = `
     <div class="detail-category">${esc(b.category)}</div>
     <h2>${esc(b.title)}</h2>
     <div class="detail-author">${esc(b.author)}</div>
     ${labelHTML}
-    ${b.coming_soon?'<div style="display:inline-block;background:#EDE9FE;color:#6D28D9;font-size:.76rem;font-weight:600;padding:3px 11px;border-radius:50px;margin-bottom:11px;">Segera Terbit — ISBN sedang diajukan</div>':''}
+    ${b.coming_soon?'<div style="display:inline-block;background:#EDE9FE;color:#6D28D9;font-size:.75rem;font-weight:600;padding:3px 11px;border-radius:50px;margin-bottom:10px;">Segera Terbit — ISBN sedang diajukan</div>':''}
     ${b.description?`<div class="detail-desc">${esc(b.description)}</div>`:''}
     <div class="detail-specs">
       <div class="spec-item"><div class="spec-label">ISBN</div><div class="spec-value">${b.coming_soon?'Dalam pengajuan':esc(b.isbn||'-')}</div></div>
@@ -752,8 +784,8 @@ function openModal(slugOrId){
       <div class="spec-item"><div class="spec-label">Kategori</div><div class="spec-value">${esc(b.category)}</div></div>
     </div>
     ${dp
-      ? `<div class="detail-price"><span style="text-decoration:line-through;color:var(--muted);font-size:.93rem;margin-right:7px;">${fmt(b.price)}</span><span style="color:#DC2626;">${fmt(dp)}</span><span style="background:#DC2626;color:#fff;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:50px;margin-left:7px;">-${b.discount}%</span></div>`
-      : `<div class="detail-price">${b.coming_soon?'-':fmt(b.price)}</div>`}
+      ? `<div class="detail-price"><span style="text-decoration:line-through;color:var(--muted);font-size:.9rem;margin-right:7px;">${fmt(b.price)}</span><span style="color:#DC2626;">${fmt(dp)}</span><span style="background:#DC2626;color:#fff;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:50px;margin-left:7px;">-${b.discount}%</span></div>`
+      : `<div class="detail-price">${b.coming_soon?'–':fmt(b.price)}</div>`}
     <div class="modal-action-row">
       ${b.links&&b.links.shopee?`<a href="${esc(b.links.shopee)}" target="_blank" rel="noopener" class="btn-shop btn-shopee">Beli di Shopee</a>`:''}
       ${b.links&&b.links.tokopedia?`<a href="${esc(b.links.tokopedia)}" target="_blank" rel="noopener" class="btn-shop btn-tokopedia">Beli di Tokopedia</a>`:''}
